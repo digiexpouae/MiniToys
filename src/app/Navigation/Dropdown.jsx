@@ -11,7 +11,7 @@ export default function Dropdown({ label, items, className }) {
                 onClick={() => setOpen(!open)}
                 className="flex items-center gap-1 text-gray-800 hover:text-gray-600 font-medium text-sm xl:text-base"
             >
-                {label}
+                <p> {label}</p>
                 <ChevronDown className="w-4 h-4 transition-transform" />
             </button>
 
