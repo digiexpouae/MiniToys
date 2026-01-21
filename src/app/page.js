@@ -4,6 +4,7 @@ import Header from "../app/Navigation/Header";
 import Herosection from '../app/components/Home/HeroSection'
 import Section2 from '../app/components/Home/Section2'
 import Section3 from '../app/components/Home/Section3'
+import Sectionfour from '../app/components/Home/Sectionfour'
 export default function Home() {
 
   return (
@@ -32,6 +33,7 @@ export default function Home() {
         </div>
         <Section2 />
         <Section3 />
+        <Sectionfour />
       </main>
     </div>
   );
