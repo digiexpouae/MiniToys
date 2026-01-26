@@ -11,7 +11,7 @@ const Product = () => {
         
                 </div> */}
                 <Header_two />
-                <Herosection />
+                <Herosection name={'Products'} />
                 <Sectionfour />
                 <Footer />
             </main>

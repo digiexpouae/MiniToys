@@ -22,9 +22,10 @@
 
 
 body {
-  background: var(--background);
+  background-color: white;
   color: var(--foreground);
   font-family: sans-serif;
+
 
 }
 
