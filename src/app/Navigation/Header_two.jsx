@@ -1,6 +1,7 @@
 import { ShoppingCart, User, Search, Menu } from 'lucide-react';
 import Image from 'next/image';
 import Navitems from './Navitems'
+import Link from 'next/link'
 const Header_two = () => {
     return (<div className='w-full'>
         <div className=" hidden md:block bg-[#FEED17] text-gray-800 text-sm py-2">
@@ -25,7 +26,9 @@ const Header_two = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <div className="w-18 aspect-[16/9] relative flex items-center justify-center">
-                            <Image src="/assets/logo2.svg" alt="logo" fill />
+                            <Link href={'/'}>
+                                <Image src="/assets/logo2.svg" alt="logo" fill />
+                            </Link>
                             {/* <span className="text-white font-bold text-xl">T</span> */}
                         </div>
                         <div>
@@ -82,7 +85,10 @@ const Header_two = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <div className="w-18 aspect-[16/9] relative flex items-center justify-center">
-                            <Image src="/assets/logo2.svg" alt="logo" fill />
+                            <Link href={'/'}>
+
+                                <Image src="/assets/logo2.svg" alt="logo" fill />
+                            </Link>
                             {/* <span className="text-white font-bold text-xl">T</span> */}
                         </div>
                         <div>
