@@ -36,9 +36,9 @@ span {
   font-family: "Asap";
 }
 
+h2,
 h3 {
   font-family: "Asap";
-  font-weight: 600;
 }
 
 @font-face {
@@ -105,13 +105,15 @@ h3 {
 
 .marquee__track {
   display: inline-flex;
-  animation: marquee 20s linear infinite;
+  width: max-content;
+  animation: marquee 15s linear infinite;
 }
 
 .marquee__track h3 {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(3rem, 6vw, 6rem);
   letter-spacing: -0.02em;
   color: #DA3C24;
+
   padding-right: 2rem;
 }
 
@@ -123,4 +125,33 @@ h3 {
   100% {
     transform: translateX(-50%);
   }
+}
+
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
 }
