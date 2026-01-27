@@ -41,7 +41,7 @@ export default function PairItWithSlider() {
                 id: 5,
                 name: 'Baby Hat',
                 price: 18.00,
-                // image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&q=80'
+                image: '/assets/BabyBowHeadband.png'
             },
             {
                 id: 6,

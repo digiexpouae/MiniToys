@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
 }
 
 @theme inline {
@@ -19,8 +20,6 @@
   }
 }
 
-
-
 body {
   background-color: white;
   color: var(--foreground);
@@ -28,7 +27,6 @@ body {
 
 
 }
-
 
 p,
 a,
@@ -155,4 +153,13 @@ h3 {
 
 .animate-float {
   animation: float 5s ease-in-out infinite;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

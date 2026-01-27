@@ -47,7 +47,7 @@ const Sectionfour = () => {
     ];
 
     return (
-        <div className=" h-auto md:min-h-screen relative w-full py-6  ">
+        <div className="md:block hidden h-auto md:min-h-screen relative w-full py-6  ">
 
 
             <div className=" bg-white   max-w-5xl mx-auto ">
