@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 export default function ExploreCategories() {
     const categories = [
         {
@@ -119,13 +120,16 @@ export default function ExploreCategories() {
 
                                             style={{ borderRadius: "30% 60% 70% 30% / 45% 69% 30% 51%" }}>
                                             <div className="absolute top-4 right-0 left-0 flex items-center animate-float justify-center">
-                                                <Image
-                                                    src={category.image}
-                                                    alt={category.name}
-                                                    width={120}
-                                                    height={120}
-                                                    className="object-contain scale-110"
-                                                />
+                                                <Link href="/products">
+
+                                                    <Image
+                                                        src={category.image}
+                                                        alt={category.name}
+                                                        width={120}
+                                                        height={120}
+                                                        className="object-contain scale-110"
+                                                    />
+                                                </Link>
                                             </div>
                                         </div>
 
@@ -180,13 +184,15 @@ export default function ExploreCategories() {
         ${index % 2 !== 0 ? "h-[350px]" : "h-[330px] "}
       `}>
                                             <div className="aspect-square mb-4 flex items-center justify-center">
-                                                <Image
-                                                    src={category.image}
-                                                    alt={category.name}
-                                                    width={200}
-                                                    height={200}
-                                                    className="w-full h-full object-contain"
-                                                />
+                                                <Link href="/products">
+                                                    <Image
+                                                        src={category.image}
+                                                        alt={category.name}
+                                                        width={200}
+                                                        height={200}
+                                                        className="w-full h-full object-contain"
+                                                    />
+                                                </Link>
                                             </div>
                                             <h3 className="text-center text-xl font-semibold text-gray-800">
                                                 {category.name}

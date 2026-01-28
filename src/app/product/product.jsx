@@ -27,7 +27,7 @@ export default function ProductPage() {
 
     return (
         <div className="min-h-screen  md:block hidden ">
-            <div className="max-w-5xl  h-[150vh] mx-auto relative rounded-3xl  overflow-hidden">
+            <div className="max-w-5xl  h-[120vh] mx-auto relative rounded-3xl  overflow-hidden">
 
                 <div className='absolute  right-0  top-2 w-full h-[95%] left-0 bg-black rounded-2xl   z-[10]'></div>
                 <div className='absolute left-2 top-0 right-0 bottom-0  rounded-2xl bg-white z-20  bg-white h-[95%] w-full'>
@@ -37,7 +37,7 @@ export default function ProductPage() {
                         </div> {/* Left Column */}
                         <div className="space-y-6 text-black  h-[95%]">
                             <span>Home / Products /</span> <span className="text-[#DA3C24]"> Add a special touch</span>
-                            <div className=' bg-[#FEF7E6] p-4 rounded-2xl'>
+                            <div className=' bg-[#FEF7E6] p-4 rounded-2xl h-full overflow-auto scrollbar-hide '>
                                 <div className=' '>
                                     <h1 className="text-3xl  font-semibold text-gray-900 mb-2">
                                         Add a special touch
@@ -53,7 +53,7 @@ export default function ProductPage() {
                                 </div>
 
                                 {/* Countdown Timer */}
-                                <div className="bg-orange-50 pt-0 rounded-xl p-4 ">
+                                <div className="bg-orange-50 pt-0 rounded-xl p-4">
                                     <div className="text-sm font-bold text-[#2D3679] mb-2">
                                         Hurry Up! Sale Ends In
                                     </div>

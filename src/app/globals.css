@@ -23,14 +23,13 @@
 body {
   background-color: white;
   color: var(--foreground);
-  font-family: sans-serif;
+  font-family: var(--font-inter);
 
 
 }
 
 p,
-a,
-span {
+a {
 
   font-family: "Asap";
 }

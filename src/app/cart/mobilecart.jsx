@@ -1,10 +1,9 @@
 "use client"
 import { useState } from 'react';
-import Head from 'next/head';
-
+import Image from 'next/image';
 export default function PaymentDetails() {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const [cardType, setCardType] = useState('mastercard');
+    const [cardType, setCardType] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         cardNumber: '',
@@ -29,7 +28,7 @@ export default function PaymentDetails() {
 
             <div className="md:hidden block">
                 <div className=" text-slate-900 dark:text-slate-100 min-h-screen font-['Inter',sans-serif]">
-                    <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col pb-6">
+                    <div className="max-w-md mx-auto bg-white  rounded-tl-2xl rounded-tr-2xl min-h-screen flex flex-col pb-6">
                         {/* Header */}
                         <header className="px-6 pt-8 pb-4">
                             <button className="flex items-center  text-slate-500 dark:text-slate-400 hover:text-[#ff7a22] transition-colors">
@@ -47,11 +46,12 @@ export default function PaymentDetails() {
                         {/* Cart Item */}
                         <div className="px-6 space-y-3 mb-8">
                             <div className="bg-white text-black p-3 rounded-2xl flex items-center gap-4 shadow-md border border-slate-100 dark:border-slate-700">
-                                <div className="w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-xl overflow-hidden flex items-center justify-center">
-                                    <img
+                                <div className="w-16 h-16  rounded-xl overflow-hidden flex items-center justify-center">
+                                    <Image
                                         alt="Kids Chair"
-                                        className="w-12 h-12 object-contain"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtABVdewBbeXHGnxwtA8AGkGLjT9SIhXHNVtnNA8X88JU2MHhD8DDUG-nE0F2sKD3p1SUZxLkOprIhmb7tRCbsVN0ncARn-Z7oGpOl1-KxfYetNJIvxtM2pXn0xbivq-9Jwc-eVepQPKquS3wDwmu-tyvdBt4oC703jpPFNSyZOu9ELkoZlVuGeUkQgK2N_7X_ApqXEHiEnnROwMnPtREjOjbJu7Jt56_XfaRXFBBMSjy0cmarK1dol3FwPOVpw3ol4I2zKsllZw95"
+                                        width={80}
+                                        height={80}
+                                        src="/assets/stroller.svg"
                                     />
                                 </div>
                                 <div className="flex-1">
@@ -71,15 +71,18 @@ export default function PaymentDetails() {
 
                         {/* Card Details Section */}
                         <div className="mx-4 flex-grow">
-                            <div className="bg-white text-black rounded-[2.5rem] p-6 shadow-xl dark:shadow-none border border-amber-100 dark:border-slate-700">
+                            <div className="bg-[#FFEFBF] text-black rounded-2xl p-6 shadow-xl ">
                                 {/* Header with Avatar */}
                                 <div className="flex justify-between  items-center mb-6">
                                     <h2 className="text-xl font-bold   text-black ">Card Details</h2>
-                                    <img
+                                    <Image
                                         alt="Profile Avatar"
-                                        className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-600 shadow-sm"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK3YMlsQBDk3r2thKtmHgkQ4iMzEbASc32jZ6lFcgXll6DQrdavsM4fdeoMjxC_tnO4YyObk8uVwUsaVVZksMY1GGYoKXKoEBOyE_wSpDziCHM4WxgLrTZL4oowobYq_eDzO07uYIjR1zRhVIEl-DK2IiU8nLbvwYbaNnztXJhyqIuFHrEnSpeSh6WQHhiLAI8jtkO2Z-4WJ6NMGi_nIu6pFwnINl8ajNDlUVh-UWjL470cOhOalkRlhNvF3M0k0Q6m375SNM7kiFP"
+                                        src="/assets/person_two.png"
+                                        width={50}
+                                        height={50}
+
                                     />
+
                                 </div>
 
                                 {/* Card Type Selection */}
@@ -95,10 +98,11 @@ export default function PaymentDetails() {
                                                 : 'border-slate-200 dark:border-slate-600'
                                                 }`}
                                         >
-                                            <img
-                                                alt="Mastercard"
-                                                className="h-5 object-contain"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuASFLrFbio3bXbZPwI4eTb_00uHlJN8XkvQ16jJoqsgyBFYo_xmadYSF-weIkXpxQqzEQK3f8xNYcLZbN0zYFqFo6-pGvhThgGty45RRWE8UVW_IFUSxB-AUxB1VC53Ac7AqiSzqB9crBsCiyO43V681egEdyDRAQCn1uKxOKXZeXSuHniY-tUvwBWohyvQlnPMr_sQ10ejigvXvtnJBXhSp011OL4QVxMP7ucV-Hu_Mb7eewYgN9tFaKDZM9cW_Cw9572eHE-j0VZD"
+                                            <Image
+                                                alt="visa"
+                                                width={40}
+                                                height={40}
+                                                src="/assets/visa.svg"
                                             />
                                         </button>
                                         <button
@@ -108,10 +112,11 @@ export default function PaymentDetails() {
                                                 : 'border-slate-200 dark:border-slate-600'
                                                 }`}
                                         >
-                                            <img
-                                                alt="Visa"
-                                                className="h-3 object-contain"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz3WoKusEnRFNDlTIjE0Qxe4vY9aku9Yhvh7ZujCkR5NXW1jSZwSSX3rgpGGxYrrv4rWWu27sckt8Zh7CSmkiqM7CiAkpNzYk2TceenIEFfWiLjdRVUx9SQzpos1fc3u61An-k0768EIo95xx8tc72uDPV4D0y9VXcl3ESoSUAIcvNMV5sK-wzUu8UNd2zPpb59ZNYJeLx0PjOxAMDht8clEMsETSUU1iMQSXvM83T97kCY7xEzwT1uZUEahtSGKThDzc7hn8Tt4Er"
+                                            <Image
+                                                alt="Rupay"
+                                                width={40}
+                                                height={40}
+                                                src="/assets/Rupay.svg"
                                             />
                                         </button>
                                         <button
@@ -121,10 +126,11 @@ export default function PaymentDetails() {
                                                 : 'border-slate-200 dark:border-slate-600'
                                                 }`}
                                         >
-                                            <img
-                                                alt="RuPay"
-                                                className="h-3 object-contain"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrLjIVk_0oiovvoAF2fx9vUR_yXauZfcUQ8719t4osvFk8YJgGsnqlWSEFdf2PuerDl1z5_1WBUxR5I5wg9glJx9OW4SBAt6uHQTTahmQNTj787aTTvSaK0nhvC1a91y7xAlPmdHUlq0QIi254X12IsSDyyoCJcvzBfHR6nX4ZAkL5-ZlF52RcW2cS8oP21MwX4NqD8-ipzQiX00YMwp9kBctiI17hIvXY2gKauWRlJmoTbTU0Nkf_qV0Im8gXXi1QF-8oub7X10j7"
+                                            <Image
+                                                alt="mastercard"
+                                                width={40}
+                                                height={40}
+                                                src="/assets/mastercard.svg"
                                             />
                                         </button>
                                         <button className="text-xs font-bold text-black  ml-1 whitespace-nowrap">
@@ -208,7 +214,7 @@ export default function PaymentDetails() {
                                 </div>
 
                                 {/* Checkout Button */}
-                                <button className="w-full mt-8 bg-[#FD8121] hover:bg-orange-600 text-white font-bold py-4 rounded-2xl flex justify-between items-center px-6 transition-all active:scale-95 shadow-lg shadow-orange-500/30">
+                                <button className="w-full mt-8 bg-[#FD8121] hover:bg-orange-600 text-black font-bold py-4 rounded-2xl flex justify-between items-center px-6 transition-all active:scale-95 shadow-lg shadow-orange-500/30">
                                     <span className="text-lg">$1,672</span>
                                     <span className="flex items-center gap-2">
                                         Checkout

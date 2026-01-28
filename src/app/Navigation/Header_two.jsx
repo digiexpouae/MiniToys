@@ -63,7 +63,8 @@ const Header_two = () => {
                         </button>
                         <div className="relative cursor-pointer  hover:text-pink-500">
                             {/* <ShoppingCart size={24} /> */}
-                            Cart
+                            <Link href="/cart">
+                                Cart </Link>
                             {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
 
                             </span> */}
@@ -106,7 +107,8 @@ const Header_two = () => {
                         </button>
                         <div className="relative cursor-pointer  hover:text-pink-500">
                             {/* <ShoppingCart size={24} /> */}
-                            Cart
+                            <Link href="/cart">
+                                Cart </Link>
                             {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
 
                             </span> */}

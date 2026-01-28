@@ -94,12 +94,12 @@ const Sectionfour = () => {
                         {tabs.map((tab, index) => (
                             <button
                                 key={index}
-                                onClick={() => setActiveTab(index)}
+                                onClick={() => setActiveTab(tab)}
                                 className={`px-6 py-2  text-sm text-nowrap md:text-md font-medium transition-colors ${activeTab === tab
                                     ? 'bg-[#CF092D]  border border-[#CF092D]/80 text-white'
                                     : 'bg-transparent text-gray-700 hover:bg-orange-100'
                                     }
-                                     ${index === 0 ? 'rounded-full' : ''
+                                     ${index === 0 ? 'rounded-l-full' : ''
                                     } ${index === tabs.length - 1 ? 'rounded-r-full' : ''
                                     }`}
                             >

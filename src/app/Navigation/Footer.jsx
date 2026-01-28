@@ -1,8 +1,33 @@
 import React from 'react';
 // import { Pinterest } from 'lucide-react';
 import Image from 'next/image';
-
+import Dropdown from './Dropdown';
+import Link from 'next/link';
 export default function NewsletterFooter() {
+    const socialMedia = [
+        {
+            icon: "/assets/facebook.svg",
+            link: "/"
+        },
+        {
+            icon: "/assets/in.svg",
+            link: "/"
+        },
+        {
+
+            icon: "/assets/x.svg",
+            link: "/"
+        }
+        ,
+        {
+            icon: "/assets/instagram.svg",
+            link: "/"
+        }
+    ]
+
+
+
+
     return (
         <div className="w-full bg-[#FFD265] relative overflow-hidden">
             {/* Decorative Squiggles */}
@@ -37,7 +62,7 @@ export default function NewsletterFooter() {
                         <input
                             type="email"
                             placeholder="Add Your E-Mail Here"
-                            className="w-full sm:w-64 px-4 py-2.5 text-zinc-800 rounded-full border-2 bg-white focus:outline-none focus:border-slate-500 text-sm"
+                            className="w-full sm:w-64 px-4 py-2.5 text-zinc-800 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.35)] border-2 border-zinc-800 bg-white focus:outline-none  text-sm"
                         />
                         <button className="w-full sm:w-auto px-8 py-2.5 bg-[#DA3C24] text-white font-semibold rounded-full hover:from-pink-600 hover:to-red-600 transition-all shadow-md  text-sm">
                             Subscribe
@@ -103,43 +128,31 @@ export default function NewsletterFooter() {
                 {/* Bottom Section */}
                 <div className="flex flex-col md:flex-row justify-between items-center pt-6 ">
                     {/* Social Icons */}
-                    <div className="flex gap-4 mb-4 md:mb-0">
-                        <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors">
-                            {/* <Linkedin size={20} /> */}
-                        </a>
-                        <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors">
-                            {/* <Facebook size={20} /> */}
-                        </a>
-                        <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors">
-                            {/* <Twitter size={20} /> */}
-                        </a>
-                        <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors">
-                            {/* <Pinterest size={20} /> */}
-                        </a>
-                    </div>
 
                     {/* Latest Items Link */}
                     <div className="mb-4 md:mb-0">
-                        <button className="px-6 py-2 text-slate-800 font-semibold rounded-full hover:bg-slate-800 hover:text-yellow-300 transition-all text-sm">
-                            Latest Items 2024 →
-                        </button>
+                        <div className="flex gap-4 mb-4 md:mb-0">
+                            {socialMedia.map((item, index) => (
+                                <Link
+                                    key={index}
+                                    href={item.link}
+                                    className="hover:scale-110 transition-transform"
+                                >
+                                    <Image
+                                        src={item.icon}
+                                        alt="social icon"
+                                        width={index === 0 ? 12 : 20}
+                                        height={index === 0 ? 12 : 20}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+
                     </div>
 
                     {/* Payment Icons */}
-                    <div className="flex gap-2 items-center">
-                        <div className="w-10 h-6 bg-blue-700 rounded flex items-center justify-center text-white text-xs font-bold">VISA</div>
-                        <div className="w-10 h-6 bg-gradient-to-r from-red-600 to-orange-500 rounded flex items-center justify-center">
-                            <div className="flex gap-0.5">
-                                <div className="w-2 h-2 bg-white rounded-full opacity-80"></div>
-                                <div className="w-2 h-2 bg-white rounded-full opacity-80"></div>
-                            </div>
-                        </div>
-                        <div className="w-10 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-[8px] font-bold">AMEX</div>
-                        <div className="w-10 h-6 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded flex items-center justify-center text-blue-900 text-[8px] font-bold">DISC</div>
-                        <div className="w-10 h-6 bg-purple-700 rounded flex items-center justify-center">
-                            <div className="w-3 h-1 bg-white rounded-full"></div>
-                        </div>
-                        <div className="w-10 h-6 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">VISA</div>
+                    <div className="flex items-center">
+                        <Image src="/assets/List.svg" alt="payment" width={390} height={120} />
                     </div>
                 </div>
             </div>

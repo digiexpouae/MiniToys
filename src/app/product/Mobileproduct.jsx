@@ -26,13 +26,13 @@ export default function ProductDetails() {
             image: '/assets/Baby Canvas Shoes.png'
         },
         {
-            id: 1,
+            id: 3,
             name: 'Baby Bow Headband',
             price: 9.00,
             image: '/assets/BabyBowHeadband.png'
         },
         {
-            id: 2,
+            id: 4,
             name: 'Baby Canvas Shoes',
             price: 19.00,
             oldPrice: 66.00,
@@ -75,9 +75,10 @@ export default function ProductDetails() {
         }
     ];
 
-    return (
-        <div className="block md:hidden min-h-screen bg-white text-gray-800 dark:text-gray-100 transition-colors duration-300 font-['Quicksand']">
+    return (<>
+        <div className="block md:hidden min-h-screen bg-white text-gray-800 dark:text-gray-100 transition-colors  duration-300 ">
             {/* Header */}
+
             <header className="px-4 py-3 flex items-center justify-center sticky top-0 text-black z-50">
                 <button className="p-2">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,6 +91,8 @@ export default function ProductDetails() {
 
             <main className="pb-24">
                 {/* Product Image */}
+
+
                 <div className="px-4 mb-6">
                     <div className="aspect-square rounded-3xl overflow-hidden shadow-lg border-white dark:border-gray-800">
                         <Image
@@ -285,42 +288,12 @@ export default function ProductDetails() {
 
             </main>
 
-            {/* Fixed Bottom Bar */}
-            <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md px-4 py-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4 z-50">
-                <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-2 h-14">
-                    <button
-                        onClick={() => handleQuantityChange(-1)}
-                        className="w-10 h-10 flex items-center justify-center text-xl font-bold"
-                    >
-                        -
-                    </button>
-                    <input
-                        type="number"
-                        value={quantity}
-                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                        className="w-10 bg-transparent border-none text-center focus:ring-0 font-bold p-0"
-                    />
-                    <button
-                        onClick={() => handleQuantityChange(1)}
-                        className="w-10 h-10 flex items-center justify-center text-xl font-bold"
-                    >
-                        +
-                    </button>
-                </div>
-                <button className="flex-1 bg-[#EF4444] text-white h-14 rounded-full font-bold shadow-lg shadow-red-500/20 transition-transform active:scale-95 uppercase tracking-wide">
-                    Add To Cart
-                </button>
-            </div>
 
-            {/* <style jsx global>{`
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style> */}
-        </div>
+
+
+        </div >
+
+
+    </>
     );
 }

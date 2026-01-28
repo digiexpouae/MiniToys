@@ -1,6 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { LineChart, Line, Cell, ResponsiveContainer, PieChart, Pie } from "recharts";
+import Link from 'next/link';
+import Storagechart from '../components/Storagechart'
 import {
     Home,
     ShoppingCart,
@@ -21,56 +24,68 @@ import {
 } from 'lucide-react';
 
 export default function AnalyticsDashboard() {
+
+    const data = [
+        { name: 'Used', value: 12 },
+        { name: 'Available', value: 12 }
+    ];
+    const digitalOrdersData = [
+        { day: "Mon", orders: 120 },
+        { day: "Tue", orders: 150 },
+        { day: "Wed", orders: 90 },
+        { day: "Thu", orders: 170 },
+        { day: "Fri", orders: 200 },
+    ];
     const [selectedMenu, setSelectedMenu] = useState('Home');
     const [salesChannelOpen, setSalesChannelOpen] = useState(false);
     const [appsOpen, setAppsOpen] = useState(false);
 
     const menuItems = [
-        { icon: Home, label: 'Home', active: true },
-        { icon: ShoppingCart, label: 'Orders' },
-        { icon: Package, label: 'Products' },
-        { icon: Users, label: 'Customers' },
-        { icon: DollarSign, label: 'Finances' },
-        { icon: BarChart3, label: 'Analytics' },
-        { icon: TrendingUp, label: 'Marketing' },
-        { icon: Percent, label: 'Discounts' },
+        { icon: '/assets/orders.svg', label: 'Home', active: true },
+        { icon: '/assets/orders.svg', label: 'Orders' },
+        { icon: '/assets/products.svg', label: 'Products' },
+        { icon: '/assets/customers.svg', label: 'Customers' },
+        { icon: '/assets/finanaces.svg', label: 'Finances' },
+        { icon: '/assets/analytics.svg', label: 'Analytics' },
+        { icon: '/assets/marketing.svg', label: 'Marketing' },
+        { icon: '/assets/discount.svg', label: 'Discounts' },
     ];
 
     const salesChannels = [
-        { icon: Store, label: 'Online store' },
-        { icon: MapPin, label: 'Point of sale' },
-        { icon: ShoppingBag, label: 'Shop' },
+        { icon: '/assets/onlinestore.svg', label: 'Online store' },
+        { icon: '/assets/shopify.svg', label: 'Point of sale' },
+        { icon: '/assets/shop.svg', label: 'Shop' },
     ];
 
     const apps = [
-        { icon: Mail, label: 'Shopify Email' },
+        { icon: '/assets/email.png', label: 'Shopify Email' },
     ];
 
     const topDownloads = [
         {
             name: 'HDRR Garage',
             url: 'https://www.myretail.com/products/elektricheskaya-zubnaya-shhetka-b...',
-            image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80'
+            image: '/assets/shoe.svg'
         },
         {
             name: 'Backplates Snow Landscape 0006',
             url: 'https://www.myretail.com/products/elektricheskaya-zubnaya-shhetka-philips-s5420-06-200...',
-            image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=100&q=80'
+            image: '/assets/shoe.svg'
         },
         {
             name: 'Backplates Nomiral 01 0006',
             url: 'https://www.myretail.com/products/smart-chasy-honor-watch-gs-pro-b...',
-            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80'
+            image: '/assets/shoes-2.svg'
         },
         {
             name: 'Backplates Nomiral 02 0128',
             url: 'https://www.myretail.com/products/smartfon-xiaomi-redmi-9-4-64gb-oc...',
-            image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=100&q=80'
+            image: '/assets/shoes-2.svg'
         },
         {
             name: 'HDRR View Paris',
             url: 'https://www.myretail.com/products/smartfon-xiaomi-redmi-9-4-64gb-oc...',
-            image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80'
+            image: '/assets/shoe.svg'
         },
     ];
 
@@ -78,39 +93,41 @@ export default function AnalyticsDashboard() {
         {
             name: 'HDRR Garage',
             url: 'https://www.myretail.com/products/elektricheskaya-zubnaya-shhetka-b...',
-            image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80'
+            image: '/assets/shoe.svg'
         },
         {
             name: 'Backplates Snow Landscape 0006',
             url: 'https://www.myretail.com/products/elektricheskaya-zubnaya-shhetka-philips-s5420-06-200...',
-            image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=100&q=80'
+            image: '/assets/shoes-2.svg'
         },
         {
             name: 'Backplates Nomiral 01 0006',
             url: 'https://www.myretail.com/products/smart-chasy-honor-watch-gs-pro-b...',
-            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80'
+            image: '/assets/shoes-2.svg'
         },
         {
             name: 'Backplates Nomiral 02 0128',
             url: 'https://www.myretail.com/products/smartfon-xiaomi-redmi-9-4-64gb-oc...',
-            image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=100&q=80'
+            image: '/assets/shoe.svg'
         },
         {
             name: 'HDRR View Paris',
             url: 'https://www.myretail.com/products/smartfon-xiaomi-redmi-9-4-64gb-oc...',
-            image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80'
+            image: '/assets/shoes-2.svg'
         },
     ];
 
     return (
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar */}
-            <aside className="w-64 bg-white border-r border-gray-200 overflow-y-auto">
+            <aside className="w-64 bg-[#F8F9FC] border-r  border-gray-200 overflow-y-auto">
                 {/* Logo */}
-                <div className="p-4 border-b border-gray-200">
+                <div className="p-4 border-b border-gray-200  bg-white">
                     <div className="flex items-center gap-2">
                         <div className="w-18 aspect-[16/9] rounded-lg">
-                            <Image src="/assets/logo2.png" alt="Logo" width={100} height={100} />
+                            <Link href="/">
+                                <Image src="/assets/logo2.png" alt="Logo" width={100} height={100} />
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -118,13 +135,13 @@ export default function AnalyticsDashboard() {
                 {/* Store Selector */}
                 <div className="p-4 border-b border-gray-200">
                     <button className="w-full flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
-                        <span className="text-sm font-medium">Vandelay Industries</span>
+                        <span className="text-sm font-medium text-black">Vandelay Industries</span>
                         <ChevronDown className="w-4 h-4 text-gray-500" />
                     </button>
                 </div>
 
                 {/* Main Menu */}
-                <nav className="p-2">
+                <nav className="p-2 ">
                     {menuItems.map((item) => (
                         <button
                             key={item.label}
@@ -134,8 +151,8 @@ export default function AnalyticsDashboard() {
                                 : 'text-gray-700 hover:bg-gray-50'
                                 }`}
                         >
-                            <item.icon className="w-4 h-4" />
-                            <span>{item.label}</span>
+                            <Image src={item.icon} width={15} height={15} />
+                            <span className='font-inter'>{item.label}</span>
                         </button>
                     ))}
                 </nav>
@@ -156,7 +173,7 @@ export default function AnalyticsDashboard() {
                                     key={item.label}
                                     className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50"
                                 >
-                                    <item.icon className="w-4 h-4" />
+                                    <Image src={item.icon} width={15} height={15} />
                                     <span>{item.label}</span>
                                 </button>
                             ))}
@@ -180,7 +197,7 @@ export default function AnalyticsDashboard() {
                                     key={item.label}
                                     className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50"
                                 >
-                                    <item.icon className="w-4 h-4" />
+                                    <Image src={item.icon} alt="app" width={15} height={15} />
                                     <span>{item.label}</span>
                                 </button>
                             ))}
@@ -200,11 +217,11 @@ export default function AnalyticsDashboard() {
                                 <input
                                     type="text"
                                     placeholder="Search"
-                                    className="w-full pl-10 pr-4 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full pl-10 pr-4 py-2 bg-[#F1F3F9] border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center gap-3 ml-4">
+                        <div className="flex items-center gap-3 ml-4 text-black">
                             <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold">
                                 XA
                             </div>
@@ -226,22 +243,12 @@ export default function AnalyticsDashboard() {
                                 <span className="text-sm text-gray-600">Total digital orders</span>
                             </div>
                             <div className="text-3xl font-bold text-gray-900 mb-4">1,589</div>
-                            <div className="h-16 relative">
-                                <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
-                                    <path
-                                        d="M0,30 Q30,25 60,28 T120,30 T180,25 T240,28 T300,30"
-                                        fill="none"
-                                        stroke="#3b82f6"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M0,30 Q30,25 60,28 T120,30 T180,25 T240,28 T300,30 L300,60 L0,60 Z"
-                                        fill="#dbeafe"
-                                        opacity="0.3"
-                                    />
-                                    <circle cx="180" cy="25" r="3" fill="#3b82f6" />
-                                    <text x="180" y="20" textAnchor="middle" fontSize="10" fill="#3b82f6" fontWeight="bold">1,256</text>
-                                </svg>
+                            <div className="h-12 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={digitalOrdersData}>
+                                        <Line type="monotone" dataKey="orders" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
 
@@ -254,47 +261,30 @@ export default function AnalyticsDashboard() {
                                 <span className="text-sm text-gray-600">Total pieces of content delivered</span>
                             </div>
                             <div className="text-3xl font-bold text-gray-900 mb-4">22,925</div>
-                            <div className="h-16">
-                                <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
-                                    <path
-                                        d="M0,35 Q30,32 60,30 T120,28 T180,25 T240,22 T300,20"
-                                        fill="none"
-                                        stroke="#9333ea"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M0,35 Q30,32 60,30 T120,28 T180,25 T240,22 T300,20 L300,60 L0,60 Z"
-                                        fill="#f3e8ff"
-                                        opacity="0.3"
-                                    />
-                                </svg>
+
+                            <div className="h-12 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={digitalOrdersData}>
+                                        <Line type="monotone" dataKey="orders" stroke="#7239EA" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
 
                         {/* Total Revenue */}
                         <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
                             <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8  flex items-center justify-center">
-                                    <Image src={'/assets/dollar.svg'} width={100} height={100} alt="Digital Orders" />
 
-                                </div>
                                 <span className="text-sm text-gray-600">Total revenue from digital orders</span>
                             </div>
                             <div className="text-3xl font-bold text-gray-900 mb-4">$22,925</div>
-                            <div className="h-16">
-                                <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
-                                    <path
-                                        d="M0,35 Q30,30 60,32 T120,30 T180,28 T240,25 T300,22"
-                                        fill="none"
-                                        stroke="#22c55e"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M0,35 Q30,30 60,32 T120,30 T180,28 T240,25 T300,22 L300,60 L0,60 Z"
-                                        fill="#dcfce7"
-                                        opacity="0.3"
-                                    />
-                                </svg>
+
+                            <div className="h-12 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={digitalOrdersData}>
+                                        <Line type="monotone" dataKey="orders" stroke="#51CD88" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
                     </div>
@@ -311,31 +301,13 @@ export default function AnalyticsDashboard() {
                             </div>
                             <div className="flex items-center gap-6">
                                 <div className="relative">
-                                    <svg className="w-32 h-32 transform -rotate-90">
-                                        <circle
-                                            cx="64"
-                                            cy="64"
-                                            r="56"
-                                            stroke="#f3f4f6"
-                                            strokeWidth="12"
-                                            fill="none"
-                                        />
-                                        <circle
-                                            cx="64"
-                                            cy="64"
-                                            r="56"
-                                            stroke="#fb923c"
-                                            strokeWidth="12"
-                                            fill="none"
-                                            strokeDasharray="352"
-                                            strokeDashoffset="88"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <div className="text-2xl font-bold text-gray-900">16GB</div>
-                                        <div className="text-xs text-gray-500">Free</div>
-                                    </div>
+                                    <Storagechart
+                                        total={100}
+                                        used={75}
+                                        title="Disk Usage"
+                                        color="#ef4444"
+                                    />
+
                                 </div>
                                 <div>
                                     <div className="text-lg font-bold text-gray-900 mb-1">Available Storage</div>
@@ -357,30 +329,13 @@ export default function AnalyticsDashboard() {
                             </div>
                             <div className="flex items-center gap-6">
                                 <div className="relative">
-                                    <svg className="w-32 h-32 transform -rotate-90">
-                                        <circle
-                                            cx="64"
-                                            cy="64"
-                                            r="56"
-                                            stroke="#f3f4f6"
-                                            strokeWidth="12"
-                                            fill="none"
-                                        />
-                                        <circle
-                                            cx="64"
-                                            cy="64"
-                                            r="56"
-                                            stroke="#facc15"
-                                            strokeWidth="12"
-                                            fill="none"
-                                            strokeDasharray="352"
-                                            strokeDashoffset="264"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
+                                    <Storagechart
+                                        total={100}
+                                        used={75}
+                                        title="Disk Usage"
+                                        color="#FEED17"
+                                    />
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <div className="text-2xl font-bold text-gray-900">2.6GB</div>
-                                        <div className="text-xs text-gray-500">Transferred</div>
                                     </div>
                                 </div>
                                 <div>
@@ -414,8 +369,8 @@ export default function AnalyticsDashboard() {
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
                             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <TrendingUp className="w-3 h-3 text-blue-600" />
+                                    <div className="w-10 h-10 rounded-full flex items-center justify-center">
+                                        <Image src="/assets/top.svg" alt="top" width={20} height={20} />
                                     </div>
                                     <h3 className="font-medium text-gray-900">Top 10 Most Popular Downloads</h3>
                                 </div>
@@ -428,7 +383,7 @@ export default function AnalyticsDashboard() {
                                 {topDownloads.map((item, index) => (
                                     <div key={index} className="p-4 hover:bg-gray-50 transition">
                                         <div className="flex items-center gap-3">
-                                            <img src={item.image} alt={item.name} className="w-10 h-10 rounded object-cover" />
+                                            <Image src={item.image} alt={item.name} width={50} height={50} />
                                             <div className="flex-1 min-w-0">
                                                 <div className="font-medium text-sm text-gray-900 mb-1">{item.name}</div>
                                                 <div className="text-xs text-blue-600 truncate">{item.url}</div>
@@ -457,7 +412,7 @@ export default function AnalyticsDashboard() {
                                 {lastOrders.map((item, index) => (
                                     <div key={index} className="p-4 hover:bg-gray-50 transition">
                                         <div className="flex items-center gap-3">
-                                            <img src={item.image} alt={item.name} className="w-10 h-10 rounded object-cover" />
+                                            <Image src={item.image} alt={item.name} width={50} height={50} />
                                             <div className="flex-1 min-w-0">
                                                 <div className="font-medium text-sm text-gray-900 mb-1">{item.name}</div>
                                                 <div className="text-xs text-blue-600 truncate">{item.url}</div>

@@ -87,91 +87,97 @@ export default function ShoppingCartCheckout() {
     const total = subtotal + shipping;
 
     return (<>
-        <div className="md:block hidden w-full min-h-screen relative p-4 rounded-2xl mx-auto">
+        <div className="md:block hidden w-full  relative p-4  px-4 lg:px-0 h-[calc(100vh-400px)] lg:h-auto lg:aspect-[16/9] rounded-2xl mx-auto  ">
             <div className='absolute top-0  right-20 top-2 -bottom-2 w-full left-0 bg-black rounded-2xl   z-[10]'></div>
 
-            <div className="absolute left-2 top-0 right-0 bottom-0 rounded-2xl bg-white z-20 overflow-auto scrollbar-hide   w-full h-full p-4">
-                < div className="max-w-7xl mx-auto " >
+            <div className="absolute left-2 top-0 right-0 bottom-0 rounded-2xl bg-white z-20    w-full h-full p-4">
+                < div className="max-w-7xl mx-auto h-full " >
                     {/* Header */}
-                    < div className="mb-6  border-b-2  border-black/20 w-1/2 p-4" >
-                        <button className="flex items-center gap-2 text-white hover:text-orange-100 transition ">
-                            <ChevronLeft className="w-5 h-5" />
-                            <span className="text-sm font-medium text-black">Shopping Cart/Checkout</span>
-                        </button>
-                    </div >
+                    <div className='flex justify-between h-full gap-4'>
+                        <div className='flex flex-col w-2/3 h-full'>
+                            < div className="  border-b-2  border-black/20 w-full p-4 " >
+                                <button className="flex items-center gap-2 text-black hover:text-orange-100 transition ">
+                                    <ChevronLeft className="w-5 h-5" />
+                                    <span className="text-sm font-medium text-black">Shopping Cart/Checkout</span>
+                                </button>
 
-                    <div className="grid grid-cols-3 overflow-auto gap-6">
-                        {/* Shopping Cart Section */}
-                        <div className="col-span-2 p-6 ">
-                            <div className="mb-6">
-                                <h2 className="text-2xl font-medium text-black">Shopping cart</h2>
-                                <p className="text-sm text-black">You have {cartItems.length} item(s) in your cart</p>
-                            </div>
+                            </div >
+                            <div className="overflow-auto w-full gap-6 h-[80%]  scrollbar-hide ">
+                                {/* Shopping Cart Section */}
+                                <div className="col-span-2 p-6 ">
+                                    <div className="mb-6">
+                                        <h2 className="text-2xl font-medium text-black">Shopping cart</h2>
+                                        <p className="text-sm text-black">You have {cartItems.length} item(s) in your cart</p>
+                                    </div>
 
-                            <div className="space-y-4">
-                                {cartItems.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className="flex flex-col sm:flex-row gap-4 p-3 shadow-lg rounded-2xl backdrop-blur-sm hover:border-gray-200 transition"
-                                    >
-                                        {/* Product Image */}
-                                        <div className="flex-shrink-0">
-                                            <Image
-                                                width={50}
-                                                height={50}
-                                                src={item.image}
-                                                alt={item.name}
-                                                className=" object-cover rounded-xl"
-                                            />
-                                        </div>
+                                    <div className="space-y-4">
+                                        {cartItems.map((item) => (
+                                            <div
+                                                key={item.id}
+                                                className="flex flex-col sm:flex-row gap-4 p-3 shadow-lg rounded-2xl backdrop-blur-sm hover:border-gray-200 transition"
+                                            >
+                                                {/* Product Image */}
+                                                <div className="flex-shrink-0">
+                                                    <Image
+                                                        width={50}
+                                                        height={50}
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        className=" object-cover rounded-xl"
+                                                    />
+                                                </div>
 
-                                        {/* Product Details */}
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="font-semibold text-gray-900 mb-1">{item.name}</h3>
-                                            <p className="text-sm text-gray-600 mb-1">{item.color}</p>
-                                            <p className="text-sm text-gray-500">{item.size}</p>
-                                        </div>
+                                                {/* Product Details */}
+                                                <div className="flex-1 min-w-0">
+                                                    <h3 className="font-semibold text-gray-900 mb-1">{item.name}</h3>
+                                                    <p className="text-sm text-gray-600 mb-1">{item.color}</p>
+                                                    <p className="text-sm text-gray-500">{item.size}</p>
+                                                </div>
 
-                                        {/* Quantity Controls */}
-                                        <div className="flex flex-col md:flex-row flex-1 items-center justify-between ">
-                                            <div className="flex flex-row items-center ">
+                                                {/* Quantity Controls */}
+                                                <div className="flex flex-col md:flex-row flex-1 items-center justify-between ">
+                                                    <div className="flex flex-row items-center ">
 
-                                                <span className="w-8 text-center text-black font-medium">{item.quantity}</span>
-                                                <div className='flex flex-col items-center'>
-                                                    <button
-                                                        onClick={() => updateQuantity(item.id, 1)}
-                                                        className="p-1 hover:bg-gray-100 transition rounded-r-lg"
-                                                    >
-                                                        <Image src="/assets/2.svg" alt="Plus" width={20} height={20} />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => updateQuantity(item.id, -1)}
-                                                        className="p-1 hover:bg-gray-100 transition rounded-l-lg"
-                                                    >
-                                                        <Image src="/assets/1.svg" alt="Minus" width={20} height={20} />
-                                                    </button>
+                                                        <span className="w-8 text-center text-black font-medium">{item.quantity}</span>
+                                                        <div className='flex flex-col items-center'>
+                                                            <button
+                                                                onClick={() => updateQuantity(item.id, 1)}
+                                                                className="p-1 hover:bg-gray-100 transition rounded-r-lg"
+                                                            >
+                                                                <Image src="/assets/2.svg" alt="Plus" width={20} height={20} />
+                                                            </button>
+                                                            <button
+                                                                onClick={() => updateQuantity(item.id, -1)}
+                                                                className="p-1 hover:bg-gray-100 transition rounded-l-lg"
+                                                            >
+                                                                <Image src="/assets/1.svg" alt="Minus" width={20} height={20} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <span className="font-medium text-black">${item.price * item.quantity}</span>
+
+                                                    {/* Price and Delete */}
+                                                    <div className="flex items-center gap-3">
+                                                        <button
+                                                            onClick={() => removeItem(item.id)}
+                                                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+                                                        >
+                                                            <Trash2 className="w-5 h-5" />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <span className="font-medium text-black">${item.price * item.quantity}</span>
-
-                                            {/* Price and Delete */}
-                                            <div className="flex items-center gap-3">
-                                                <button
-                                                    onClick={() => removeItem(item.id)}
-                                                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
-                                                >
-                                                    <Trash2 className="w-5 h-5" />
-                                                </button>
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
-                                ))}
+                                </div>
+
+                                {/* Card Details Section */}
+
                             </div>
                         </div>
 
-                        {/* Card Details Section */}
-                        <div className="bg-[#FFEFBF] rounded-3xl p-6 md:p-8 h-fit">
-                            <div className="flex items-center justify-between mb-6">
+                        <div className="bg-[#FFEFBF] rounded-3xl p-5 h-full w-1/3 ">
+                            <div className="flex items-center justify-between mb-2">
                                 <p className="text-xl font-medium text-gray-900">Card Details</p>
                                 <Image
                                     src="/assets/person_two.png"
@@ -183,8 +189,8 @@ export default function ShoppingCartCheckout() {
                             </div>
 
                             {/* Card Type Selection */}
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-3">Card type</label>
+                            <div className="mb-2 ">
+                                <label className="block text-sm font-medium text-gray-700 ">Card type</label>
                                 <div className="flex gap-3">
                                     <button className="flex-1 p-3  transition">
                                         <Image
@@ -221,9 +227,9 @@ export default function ShoppingCartCheckout() {
                             </div>
 
                             {/* Card Inputs */}
-                            <div className="space-y-4 mb-6">
+                            <div className="space-y-4 mb-3">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Name on card
                                     </label>
                                     <input
@@ -234,7 +240,7 @@ export default function ShoppingCartCheckout() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Card Number
                                     </label>
                                     <input
@@ -246,9 +252,9 @@ export default function ShoppingCartCheckout() {
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-4 pb-3 border-b-2 border-[#5F65C3]">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Expiration date
                                         </label>
                                         <div className="flex gap-2">
@@ -265,7 +271,7 @@ export default function ShoppingCartCheckout() {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
                                         <input
                                             type="text"
                                             placeholder="123"
@@ -279,7 +285,7 @@ export default function ShoppingCartCheckout() {
                             </div>
 
                             {/* Price Summary */}
-                            <div className="space-y-2 mb-6 pb-6 border-b-2 border-gray-200">
+                            <div className="space-y-2   ">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">Subtotal</span>
                                     <span className="font-medium text-gray-900">${subtotal}</span>
@@ -295,7 +301,7 @@ export default function ShoppingCartCheckout() {
                             </div>
 
                             {/* Total and Checkout */}
-                            <div className="flex items-center justify-between cursor-pointer mb-4 bg-[#FD8121] hover:bg-[#FD8121]/60 p-4 rounded-xl">
+                            <div className="flex items-center mt-4 justify-between cursor-pointer mb-4 bg-[#FD8121] hover:bg-[#FD8121]/60 p-4 rounded-xl">
                                 <div>
                                     <div className="text-xl font-semibold text-gray-900">
                                         ${total}</div>
@@ -306,6 +312,7 @@ export default function ShoppingCartCheckout() {
                             </div>
                         </div>
                     </div>
+
                 </div >
             </div>
         </div >

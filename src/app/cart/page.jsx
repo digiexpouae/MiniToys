@@ -3,6 +3,7 @@ import Footer from "../Navigation/Footer"
 import Cart from './cart'
 import Herosection from "../products/Herosection"
 import MobileCart from './mobilecart'
+import Recommended from "../components/Home/recommeded"
 const CartPage = () => {
     return (
         <div>
@@ -10,11 +11,12 @@ const CartPage = () => {
 
             <div className="relative  w-full">
                 <Herosection />
-                <div className="relative rounded-2xl max-w-6xl mx-auto -translate-y-44">
+                <div className="relative rounded-2xl px-4 l max-w-6xl mx-auto -translate-y-44">
                     <Cart />
                     <MobileCart />
 
                 </div>
+                <Recommended />
 
             </div>
 
