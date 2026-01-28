@@ -247,42 +247,7 @@ export default function ProductDetails() {
                     </div>
                 </section>
 
-                {/* You May Also Like Section */}
-                <section className="mt-12 px-4">
-                    <h2 className="text-3xl font-black text-[#3B82F6] text-center mb-8 uppercase tracking-tight">You may also like</h2>
-                    <div className="grid grid-cols-2 gap-4">
-                        {relatedProducts.map((product) => (
-                            <div key={product.id} className="bg-[#FEF9EB]  rounded-3xl p-4 text-center border border-orange-50 dark:border-gray-800 relative">
-                                {product.save && (
-                                    <div className="absolute top-2 left-2 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
-                                        Save ${product.save}
-                                    </div>
-                                )}
-                                <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    width={150}
-                                    height={150}
-                                    className="w-full h-32 object-contain mb-4"
-                                />
-                                <h3 className="text-xs font-bold mb-2">{product.name}</h3>
-                                <div className="flex justify-center gap-1 mb-2">
-                                    {product.colors.map((color, index) => (
-                                        <div key={index} className={`w-3 h-3 rounded-full ${color} border border-gray-200`}></div>
-                                    ))}
-                                </div>
-                                <p className="text-sm font-bold">
-                                    <span className={product.oldPrice ? 'text-[#EF4444]' : 'text-gray-700 dark:text-gray-300'}>
-                                        ${product.price.toFixed(2)}
-                                    </span>
-                                    {product.oldPrice && (
-                                        <span className="line-through text-gray-400 text-xs ml-1">${product.oldPrice.toFixed(2)}</span>
-                                    )}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+
 
                 {/* Newsletter Section */}
 

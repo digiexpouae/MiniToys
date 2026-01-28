@@ -26,36 +26,37 @@ const Product = () => {
 
                     </div>
                     <Recommended />
-                    <div className="md:hidden block sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md px-4 py-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4 z-5  ">
-                        <div className="flex items-center text-black rounded-full px-2 h-14">
-                            <button
-                                onClick={() => handleQuantityChange(-1)}
-                                className="w-10 h-10 flex items-center justify-center text-xl font-bold"
-                            >
-                                -
-                            </button>
-                            <input
-                                type="number"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                                className="w-10 bg-transparent border-none text-center focus:ring-0 font-bold p-0"
-                            />
-                            <button
-                                onClick={() => handleQuantityChange(1)}
-                                className="w-10 h-10 flex items-center justify-center text-xl font-bold"
-                            >
-                                +
-                            </button>
-                        </div>
-                        <button className="flex-1 bg-[#FF3A09] text-white h-14 rounded-full font-bold shadow-lg shadow-red-500/20 transition-transform active:scale-95 uppercase tracking-wide">
-                            Add To Cart
-                        </button>
-                    </div>
+
 
                 </div>
 
             </div>
             <Footer />
+            <div className="md:hidden block sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md px-4 py-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4 z-[55]  ">
+                <div className="flex items-center text-black rounded-full px-2 h-14">
+                    <button
+                        onClick={() => handleQuantityChange(-1)}
+                        className="w-10 h-10 flex items-center justify-center text-xl font-bold"
+                    >
+                        -
+                    </button>
+                    <input
+                        type="number"
+                        value={quantity}
+                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-10 bg-transparent border-none text-center focus:ring-0 font-bold p-0"
+                    />
+                    <button
+                        onClick={() => handleQuantityChange(1)}
+                        className="w-10 h-10 flex items-center justify-center text-xl font-bold"
+                    >
+                        +
+                    </button>
+                </div>
+                <button className="flex-1 bg-[#FF3A09] text-white h-14 rounded-full font-bold shadow-lg shadow-red-500/20 transition-transform active:scale-95 uppercase tracking-wide">
+                    Add To Cart
+                </button>
+            </div>
 
         </>
     );
