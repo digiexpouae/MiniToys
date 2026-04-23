@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import Image from 'next/image';
-export default function PaymentDetails() {
+export default function PaymentDetails({ cartItems }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [cardType, setCardType] = useState('');
     const [formData, setFormData] = useState({

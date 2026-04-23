@@ -2,9 +2,15 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
-  experimental: {
+  // experimental: {
 
-    optimizeCss: true,
+  //   optimizeCss: true,
+  // },
+  images: {
+    domains: ['picsum.photos'], // Add all external image hosts here
+
+    unoptimized: true,
+
   },
 };
 

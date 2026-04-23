@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-
+import { ToastContainer } from "react-toastify";
+import Headertwo from '../app/Navigation/Header_two'
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./context/Authcontext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,12 +26,27 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <AuthProvider >
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
+        >
+          <Headertwo />
+          {children}
+          <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
