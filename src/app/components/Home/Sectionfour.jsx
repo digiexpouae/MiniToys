@@ -140,7 +140,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                             {/* Product Image */}
                                             <div className="flex justify-center items-center bg-gray-50 p-4 h-40">
                                                 <Image
-                                             src={`${process.env.NEXT_PUBLIC_BASE_URL}/${product.image}`}
+                                             src={product.image}
                                                     alt={product.name}
                                                     width={120}
                                                     height={120}
@@ -207,7 +207,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                     <Image
 
 
-                                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/${product.image}`}
+                                    src={product.image}
                                         alt={product.name} width={120} height={120} />
                                 </div>
 

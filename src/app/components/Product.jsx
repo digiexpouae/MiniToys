@@ -192,7 +192,7 @@ export default function ProductPage({ product, sellerinfo}) {
                             <div className=' border p-4  py-6 pb-22 rounded-2xl border-black'>
                                 <div className="relative rounded-2xl overflow-hidden md:w-[350px] bg-gray-100 aspect-16/12">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${product.image}`}
+                                        src={`${product.image}`}
                                         alt="Product"
                                         fill
                                         className="w-full h-full object-cover"

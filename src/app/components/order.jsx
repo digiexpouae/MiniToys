@@ -362,7 +362,7 @@ const MyOrders = () => {
                                             className="flex items-center gap-4 border-t border-gray-100 pt-3"
                                         >
                                             <Image
-                                                src={`${process.env.NEXT_PUBLIC_BASE_URL}/${item.image}`}
+                                                src={item.image}
                                                 width={100}
                                                 height={100}
                                                 alt={item.name}

@@ -123,7 +123,7 @@ export default function ExploreCategories({ categories }) {
                                                 <Link href="/products">
 
                                                     <Image
-                                                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${category.image}`}
+                                                        src={category.image}
                                                         alt={category.name}
                                                         width={120}
                                                         height={120}
@@ -186,7 +186,7 @@ export default function ExploreCategories({ categories }) {
                                             <div className="aspect-square mb-4 flex items-center justify-center">
                                                 <Link href="/products">
                                                     <Image
-                                                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${category.image}`}
+                                                        src={category.image}
                                                         alt={category.name}
                                                         width={200}
                                                         height={200}

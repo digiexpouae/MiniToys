@@ -146,7 +146,7 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                                                     <Image
                                                         width={50}
                                                         height={50}
-                                                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${item.image}`}
+                                                        src={item.image}
                                                         alt={item.name}
                                                         className=" object-cover rounded-xl"
                                                     />
