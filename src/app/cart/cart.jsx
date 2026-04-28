@@ -1,65 +1,70 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeft, Trash2, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
-export default function ShoppingCartCheckout() {
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        },
-        {
-            id: 2,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        },
-        {
-            id: 3,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        },
-        {
-            id: 4,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        },
-        {
-            id: 5,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        },
-        {
-            id: 6,
-            name: 'Kids Chair',
-            color: 'Ashen Slate/Cobalt Bliss',
-            size: 'DRFOS11 (Size 6 Yonth)',
-            price: 40,
-            quantity: 1,
-            image: '/assets/stroller.svg'
-        }
-    ]);
+import api from '../utils/axiosInterceptor';
+import { useCartStore } from '../store/cartstore';
+import { useRouter } from 'next/navigation';
 
+export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
+    // const [cartItems, setCartItems] = useState([
+    //     {
+    //         id: 1,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     },
+    //     {
+    //         id: 5,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     },
+    //     {
+    //         id: 6,
+    //         name: 'Kids Chair',
+    //         color: 'Ashen Slate/Cobalt Bliss',
+    //         size: 'DRFOS11 (Size 6 Yonth)',
+    //         price: 40,
+    //         quantity: 1,
+    //         image: '/assets/stroller.svg'
+    //     }
+    // ]);
+    const router = useRouter()
+    const { refreshCount } = useCartStore();
 
     const [cardDetails, setCardDetails] = useState({
         cardNumber: '',
@@ -67,27 +72,47 @@ export default function ShoppingCartCheckout() {
         expiryMonth: '',
         expiryYear: ''
     });
+    const [cartItemsQuantity, setcartItemsQuantity] = useState(0)
 
-    const updateQuantity = (id, change) => {
-        setCartItems(items =>
-            items.map(item =>
-                item.id === id
-                    ? { ...item, quantity: Math.max(1, item.quantity + change) }
-                    : item
-            )
-        );
+
+
+    function debounce(fn, delay) {
+        let timer;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), delay);
+        };
+    }
+
+    const removeItem = async (id) => {
+        const response = await api.delete({ url: `v1/cart/${id}` });
+        if (response.success) {
+            await fetchCart()
+            await refreshCount()
+        }
     };
 
-    const removeItem = (id) => {
-        setCartItems(items => items.filter(item => item.id !== id));
+    const handleQuantityChange = (id, currentQty, change) => {
+        const newQty = Math.max(1, currentQty + change);
+
+        updateCartOnServer(id, newQty);
     };
+
+    const updateCartOnServer = debounce(async (id, qty) => {
+        await api.put({
+            url: `v1/cart/update/${id}`,
+            data: { quantity: qty }
+        });
+        fetchCart();
+
+    }, 400);
 
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const shipping = 9;
-    const total = subtotal + shipping;
+    const total = Math.floor(subtotal + shipping);
 
     return (<>
-        <div className="md:block hidden w-full  relative p-4  px-4 lg:px-0 h-[calc(100vh-400px)] lg:h-auto lg:aspect-[16/9] rounded-2xl mx-auto  ">
+        <div className="md:block hidden w-full  relative p-4   h-[calc(100vh-400px)] lg:h-auto lg:aspect-[16/9] rounded-2xl mx-auto  ">
             <div className='absolute top-0  right-20 top-2 -bottom-2 w-full left-0 bg-black rounded-2xl   z-[10]'></div>
 
             <div className="absolute left-2 top-0 right-0 bottom-0 rounded-2xl bg-white z-20    w-full h-full p-4">
@@ -111,9 +136,9 @@ export default function ShoppingCartCheckout() {
                                     </div>
 
                                     <div className="space-y-4">
-                                        {cartItems.map((item) => (
+                                        {cartItems.map((item, index) => (
                                             <div
-                                                key={item.id}
+                                                key={index}
                                                 className="flex flex-col sm:flex-row gap-4 p-3 shadow-lg rounded-2xl backdrop-blur-sm hover:border-gray-200 transition"
                                             >
                                                 {/* Product Image */}
@@ -141,20 +166,20 @@ export default function ShoppingCartCheckout() {
                                                         <span className="w-8 text-center text-black font-medium">{item.quantity}</span>
                                                         <div className='flex flex-col items-center'>
                                                             <button
-                                                                onClick={() => updateQuantity(item.id, 1)}
+                                                                onClick={() => handleQuantityChange(item.id, item.quantity, 1)}
                                                                 className="p-1 hover:bg-gray-100 transition rounded-r-lg"
                                                             >
                                                                 <Image src="/assets/2.svg" alt="Plus" width={20} height={20} />
                                                             </button>
                                                             <button
-                                                                onClick={() => updateQuantity(item.id, -1)}
+                                                                onClick={() => handleQuantityChange(item.id, item.quantity, -1)}
                                                                 className="p-1 hover:bg-gray-100 transition rounded-l-lg"
                                                             >
                                                                 <Image src="/assets/1.svg" alt="Minus" width={20} height={20} />
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <span className="font-medium text-black">${item.price * item.quantity}</span>
+                                                    <span className="font-medium text-black">${Math.floor(item.price * item.quantity)}</span>
 
                                                     {/* Price and Delete */}
                                                     <div className="flex items-center gap-3">
@@ -171,7 +196,6 @@ export default function ShoppingCartCheckout() {
                                     </div>
                                 </div>
 
-                                {/* Card Details Section */}
 
                             </div>
                         </div>
@@ -288,7 +312,7 @@ export default function ShoppingCartCheckout() {
                             <div className="space-y-2   ">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">Subtotal</span>
-                                    <span className="font-medium text-gray-900">${subtotal}</span>
+                                    <span className="font-medium text-gray-900">${Math.floor(subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">Shipping</span>
@@ -301,7 +325,7 @@ export default function ShoppingCartCheckout() {
                             </div>
 
                             {/* Total and Checkout */}
-                            <div className="flex items-center mt-4 justify-between cursor-pointer mb-4 bg-[#FD8121] hover:bg-[#FD8121]/60 p-4 rounded-xl">
+                            <div className="flex items-center mt-4 justify-between cursor-pointer mb-4 bg-[#FD8121] hover:bg-[#FD8121]/60 p-4 rounded-xl" onClick={() => router.push('/checkout')} >
                                 <div>
                                     <div className="text-xl font-semibold text-gray-900">
                                         ${total}</div>

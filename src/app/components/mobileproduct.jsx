@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export default function ProductDetails() {
+export default function ProductDetails({ product }) {
     const [quantity, setQuantity] = useState(1);
     const [giftWrap, setGiftWrap] = useState(false);
     const [email, setEmail] = useState('');
@@ -96,7 +96,7 @@ export default function ProductDetails() {
                 <div className="px-4 mb-6">
                     <div className="aspect-square rounded-3xl overflow-hidden shadow-lg border-white dark:border-gray-800">
                         <Image
-                            src="/assets/gift-2.png"
+                            src={product.image}
                             alt="Child with gifts"
                             width={500}
                             height={500}
@@ -108,9 +108,9 @@ export default function ProductDetails() {
                 {/* Product Details Section */}
                 <section className="px-4">
                     <div className="bg-white  rounded-3xl p-6 shadow-sm border border-orange-100 dark:border-gray-800">
-                        <h2 className="text-2xl font-bold mb-2 text-black">Add a special touch</h2>
+                        <h2 className="text-2xl font-bold mb-2 text-black">{product.name}</h2>
                         <div className="flex items-baseline gap-2 mb-4">
-                            <span className="text-3xl font-bold text-[#EF4444]">$10.00</span>
+                            <span className="text-3xl font-bold text-[#EF4444]">${product.price}</span>
                             <span className="text-sm text-gray-400 dark:text-gray-500">Tax included.</span>
                         </div>
 

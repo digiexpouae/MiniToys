@@ -2,10 +2,26 @@
 import React, { useState } from 'react';
 import { Heart, Share2, Facebook, Linkedin, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import Slider from '../components/Slider'
-export default function ProductPage() {
+import Slider from './Slider'
+import Cookies from 'js-cookie';
+import api from '../utils/axiosInterceptor';
+import products from '../product';
+import { useRouter } from 'next/navigation';
+import { fetchCartCount, isLoggedIn } from '../utils/auth';
+import { useCartStore } from '../store/cartstore';
+export default function ProductPage({ product, sellerinfo}) {
     const [quantity, setQuantity] = useState(1);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const router = useRouter(); // ← add this
+
+    const { refreshCount } = useCartStore()
+
+
+    const [formValues, setFormValues] = useState({
+        product_id: product.id,
+        quantity: 1,
+    });
+
 
     const images = [
         "/assets/gift-2.png",
@@ -25,6 +41,24 @@ export default function ProductPage() {
         setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
+
+    const addToCart = async () => {
+
+        console.log("Formdata", formValues)
+        if (!isLoggedIn()) {
+            return router.push('/login');
+        }
+
+        const response = await api.post({
+            url: 'v1/cart/new',
+            data: formValues,
+
+        })
+        if (response.success) {
+            await refreshCount()
+        }
+        console.log(response)
+    }
     return (
         <div className="min-h-screen  md:block hidden ">
             <div className="max-w-5xl  h-[120vh] mx-auto relative rounded-3xl  overflow-hidden">
@@ -36,14 +70,14 @@ export default function ProductPage() {
 
                         </div> {/* Left Column */}
                         <div className="space-y-6 text-black  h-[95%]">
-                            <span>Home / Products /</span> <span className="text-[#DA3C24]"> Add a special touch</span>
+                            <span>Home / Products /</span> <span className="text-[#DA3C24]"> {product.name}</span>
                             <div className=' bg-[#FEF7E6] p-4 rounded-2xl h-full overflow-auto scrollbar-hide '>
                                 <div className=' '>
                                     <h1 className="text-3xl  font-semibold text-gray-900 mb-2">
-                                        Add a special touch
+                                        {product.name}
                                     </h1>
                                     <div className="flex flex-col items-baseline gap-3">
-                                        <span className="text-3xl font-bold text-gray-900">$10.00</span>
+                                        <span className="text-3xl font-bold text-gray-900">${product.price}</span>
                                         <span className="text-sm text-black">Tax included</span>
                                     </div>
                                     <div className="flex items-center mt-2  py-1 gap-2 text-sm font-medium rounded-full">
@@ -158,7 +192,7 @@ export default function ProductPage() {
                             <div className=' border p-4  py-6 pb-22 rounded-2xl border-black'>
                                 <div className="relative rounded-2xl overflow-hidden md:w-[350px] bg-gray-100 aspect-16/12">
                                     <Image
-                                        src={images[currentImageIndex]}
+                                        src={`${product.image}`}
                                         alt="Product"
                                         fill
                                         className="w-full h-full object-cover"
@@ -217,7 +251,7 @@ export default function ProductPage() {
                                             </div>
                                         </div>
 
-                                        <button className="  text-nowrap px-12 py-2 w-1/2 border rounded-full text-black font-medium  transition shadow-lg hover:bg-zinc-200 cursor-pointer">
+                                        <button onClick={addToCart} className="  text-nowrap px-12 py-2 w-1/2 border rounded-full text-black font-medium  transition shadow-lg hover:bg-zinc-200 cursor-pointer">
                                             Add To Cart
                                         </button>
 
@@ -226,7 +260,7 @@ export default function ProductPage() {
                                     <button className="w-full text-center text-sm text-gray-600 hover:text-gray-900 underline">
                                         View sample product
                                     </button>
-
+<div className='text-zinc-800 text-sm font-medium'>Seller: <span className=' uppercase text-sm'>{sellerinfo}</span></div>
                                 </div>
                             </div>
                             {/* What's Included */}

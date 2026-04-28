@@ -3,72 +3,72 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-export default function ExploreCategories() {
-    const categories = [
-        {
-            id: 1,
-            name: 'Feeding',
-            image: '/assets/milk.png'
-        },
-        {
-            id: 2,
-            name: 'Toys',
-            image: '/assets/toys-2.png'
-        },
-        {
-            id: 3,
-            name: 'Bath',
-            image: '/assets/toys-3.png'
-        },
-        {
-            id: 4,
-            name: 'Clothes',
-            image: '/assets/minion-3.png'
-        },
-        {
-            id: 5,
-            name: 'Books',
-            image: '/assets/minion-3.png'
-        },
-        {
-            id: 6,
-            name: 'Outdoor',
-            image: '/assets/minion-3.png'
-        }
-    ];
+export default function ExploreCategories({ categories }) {
+    // const categories = [
+    //     {
+    //         id: 1,
+    //         name: 'Feeding',
+    //         image: '/assets/milk.png'
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Toys',
+    //         image: '/assets/toys-2.png'
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Bath',
+    //         image: '/assets/toys-3.png'
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Clothes',
+    //         image: '/assets/minion-3.png'
+    //     },
+    //     {
+    //         id: 5,
+    //         name: 'Books',
+    //         image: '/assets/minion-3.png'
+    //     },
+    //     {
+    //         id: 6,
+    //         name: 'Outdoor',
+    //         image: '/assets/minion-3.png'
+    //     }
+    // ];
 
-    const categories_Two = [
-        {
-            id: 1,
-            name: 'Feeding',
-            image: '/assets/Croche Bear.png'
-        },
-        {
-            id: 2,
-            name: 'Toys',
-            image: '/assets/toys-2.png'
-        },
-        {
-            id: 3,
-            name: 'Bath',
-            image: '/assets/toys-3.png'
-        },
-        {
-            id: 4,
-            name: 'Clothes',
-            image: '/assets/minion-3.png'
-        },
-        {
-            id: 5,
-            name: 'Books',
-            image: '/assets/minion-3.png'
-        },
-        {
-            id: 6,
-            name: 'Outdoor',
-            image: '/assets/minion-3.png'
-        }
-    ];
+    // const categories_Two = [
+    //     {
+    //         id: 1,
+    //         name: 'Feeding',
+    //         image: '/assets/Croche Bear.png'
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Toys',
+    //         image: '/assets/toys-2.png'
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Bath',
+    //         image: '/assets/toys-3.png'
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Clothes',
+    //         image: '/assets/minion-3.png'
+    //     },
+    //     {
+    //         id: 5,
+    //         name: 'Books',
+    //         image: '/assets/minion-3.png'
+    //     },
+    //     {
+    //         id: 6,
+    //         name: 'Outdoor',
+    //         image: '/assets/minion-3.png'
+    //     }
+    // ];
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextSlide = () => {
@@ -95,7 +95,7 @@ export default function ExploreCategories() {
                     {/* Title */}
 
                     <div className="flex gap-2 snap-x snap-mandatory px-4">
-                        {[...categories_Two, ...categories_Two].map((category, index) => (
+                        {categories.map((category, index) => (
                             <div
                                 key={`mobile-${category.id}-${index}`}
                                 className="flex-shrink-0 w-44 px-2"
