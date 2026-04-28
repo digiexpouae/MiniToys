@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // base url
 // adding url method url concatenate with base url
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:4000/",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 600000,
     headers: {
         Accept: "application/json",

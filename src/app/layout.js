@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Headertwo from '../app/Navigation/Header_two'
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./context/Authcontext";
+import { Suspense } from 'react'
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
         >
+          <Suspense fallback={<div className="h-20 bg-white" />}>
           <Headertwo />
+          </Suspense>
           {children}
           <ToastContainer
             position="bottom-right"
