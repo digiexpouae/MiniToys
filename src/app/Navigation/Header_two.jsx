@@ -10,7 +10,6 @@ import api from '../utils/axiosInterceptor';
 import { useContext } from 'react';
 import { AuthContext } from '../context/Authcontext';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
-
 import { fetchCartCount, isLoggedIn } from '../utils/auth';
 const Header_two = () => {
     const { IsAuth, setIsAuth } = useContext(AuthContext)
@@ -21,7 +20,6 @@ const Header_two = () => {
     const pathname = usePathname()
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const isNavigatingRef = useRef(false);
-
     const { cartCount, refreshCount } = useCartStore();
     const [products, setProducts] = useState([])
     const searchParams = useSearchParams()
@@ -30,6 +28,13 @@ const Header_two = () => {
 useEffect(() => {
     setMounted(true);
 }, []);
+
+
+// Clear on route change
+useEffect(() => {
+    setProducts([]);
+}, [router.pathname]); 
+
 
 
 useEffect(()=>{console.log("mount",mounted)},[mounted])
@@ -395,46 +400,70 @@ useEffect(()=>{console.log("mount",mounted)},[mounted])
                     <input
                         type="text"
                         placeholder="Search Baby Monitor"
-                        onChange={(e) => debounceFunc(e.target.value)}
-                        onKeyDown={(e) => {
+                        onChange={(e) => {
+                                    if (isNavigatingRef.current) return;
+                                    setSearchValue(e.target.value)
+                                    console.log("targeted val", e.target.value)
+                                    debounceFunc(e.target.value)
+                                }}
+                                value={searchValue}
+                                onKeyDown={(e) => {
 
-                            if (e.key === "ArrowDown") {
-                                e.preventDefault()
-                                console.log("down arrow", active)
-                                setActive((prev) => (prev + 1) % products.length)
-                            }
-                            if (e.key === "ArrowUp") {
-                                e.preventDefault()
-                                console.log("up arrow")
-                                setActive((prev) => (prev - 1 + products.length) % products.length)
-                            }
+                                    if (e.key === "ArrowDown" && products.length > 0) {
+                                        e.preventDefault()
+                                        console.log("down arrow", active)
+                                        setActive((prev) => (prev + 1) % products.length)
+                                    }
+                                    if (e.key === "ArrowUp" && products.length > 0) {
+                                        e.preventDefault()
+                                        console.log("up arrow")
+                                        setActive((prev) => (prev - 1 + products.length) % products.length)
+                                    }
 
-                            if (e.key === "Enter") {
-                                if (active >= 0) {
-                                    console.log("log1", products)
-                                    console.log("products[active].name", products[active].name)
+                                    if (e.key === "Enter" && searchValue) {
+                                        e.target.blur();
+                                        if (debounceRef.current) {
+                                            clearTimeout(debounceRef.current);
+                                        }
+                                        isNavigatingRef.current = true;
+                                        if (active >= 0 && products[active]) {
 
-                                    router.push(`/search?q=${products[active].name}`)
-                                }
-                                else {
-                                    router.push(`/search?q=${searchValue}`)
+                                            console.log("log1", products)
+                                            router.push(`/search?q=${products[active].name}`)
+                                            setProducts([])
+                                        }
+                                        else {
+                                            router.push(`/search?q=${e.target.value}`)
 
-                                }
-                                setProducts([])
-                                console.log("log2", products)
+                                        }
+                                        // setProducts([])
+                                        console.log("log2", products)
 
-                            }
+                                    }
 
-                        }}
+                                }}
                         className="w-full px-4 py-3 pl-12 font-sm text-zinc-800 border border-[#95969E] rounded-full focus:outline-none focus:border-zinc-800"
                     />
                     {products.length > 0 && (
                         <div className="absolute w-full bg-white top-[100%] border mt-2 rounded-xl shadow-lg z-50">
-                            {products.map((item) => (
+                            {products.map((item,index) => (
                                 <div
                                     key={item.id}
                                     className="p-3 hover:bg-gray-100 text-black cursor-pointer"
-                                >
+                              
+                                 onMouseEnter={() => {
+                                                console.log("mouse Enter active index", active)
+                                                setActive(index)
+
+                                            }}
+
+                                            onMouseDown={(e) => {
+                                                e.preventDefault();
+                                                handleSearch(item.name)
+                                            }}
+                              
+                              
+                              >
 
                                     <Link href={`/search?q=${item.name ? item.name : ""}`}> {item.name}</Link>
                                 </div>
