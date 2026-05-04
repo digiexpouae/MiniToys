@@ -43,7 +43,7 @@ function ProductPageContent() {
                     <Product product={product} sellerinfo={sellerinfo} />
                     <Mobileproduct product={product} />
                 </div>
-                <Recommended />
+                {/* <Recommended /> */}
             </div>
             <Footer />
         </>
