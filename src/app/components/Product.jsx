@@ -6,6 +6,7 @@ import Slider from './Slider'
 import Cookies from 'js-cookie';
 import api from '../utils/axiosInterceptor';
 import products from '../product';
+import { DirhamSymbol } from './Dirhamsymbol';
 import { useRouter } from 'next/navigation';
 import { fetchCartCount, isLoggedIn } from '../utils/auth';
 import { useCartStore } from '../store/cartstore';
@@ -18,7 +19,7 @@ export default function ProductPage({ product, sellerinfo}) {
 
 
     const [formValues, setFormValues] = useState({
-        product_id: product.id,
+       slug: product.slug,
         quantity: 1,
     });
 
@@ -77,7 +78,7 @@ export default function ProductPage({ product, sellerinfo}) {
                                         {product.name}
                                     </h1>
                                     <div className="flex flex-col items-baseline gap-3">
-                                        <span className="text-3xl font-bold text-gray-900">${product.price}</span>
+                                        <span className="text-3xl font-bold text-gray-900"><DirhamSymbol size={'24px'}/> {product.price}</span>
                                         <span className="text-sm text-black">Tax included</span>
                                     </div>
                                     <div className="flex items-center mt-2  py-1 gap-2 text-sm font-medium rounded-full">
@@ -264,14 +265,14 @@ export default function ProductPage({ product, sellerinfo}) {
                                 </div>
                             </div>
                             {/* What's Included */}
-                            <div>
+                            {/* <div>
                                 <h3 className="font-semibold text-gray-900 mb-4">What is this?</h3>
                                 <Slider />
 
-                            </div>
+                            </div> */}
 
                             {/* Bottom Image */}
-                            <div className="rounded-2xl overflow-hidden">
+                            {/* <div className="rounded-2xl overflow-hidden">
                                 <Image
                                     src="/assets/gift.png"
                                     width={100}
@@ -279,7 +280,7 @@ export default function ProductPage({ product, sellerinfo}) {
                                     alt="Gift setup"
                                     className="w-full h-64 object-cover"
                                 />
-                            </div>
+                            </div> */}
 
                             <p className="text-sm text-gray-600 leading-relaxed">
                                 A faux, silk ribbon is finished in a magical, quirky floral and wildlife prints that will

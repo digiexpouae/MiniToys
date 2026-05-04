@@ -3,107 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Package, ChevronDown, ChevronUp, MessageCircle, Truck, Info } from 'lucide-react';
 import api from '../utils/axiosInterceptor'
 import Image from 'next/image';
+import { DirhamSymbol } from './Dirhamsymbol';
 // Sample order data
-const sampleOrders = [
-    {
-        id: '#176927512438023',
-        placedOn: '30 Dec 2023 15:50:28',
-        total: 1940,
-        packages: [
-            {
-                packageNumber: 1,
-                seller: "The Bhasar's Trader",
-                deliveryWindow: 'Tue 02 Jan - Sun 07 Jan',
-                deliveryType: 'Standard Delivery',
-                currentStatus: 'shipped',
-                trackingUpdates: [
-                    {
-                        date: '02 Jan 2024 - 15:58',
-                        message: 'Your package has been handed over to PK-TCS_OLE.'
-                    }
-                ],
-                items: [
-                    {
-                        image: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=400',
-                        name: 'Full Folding Color Coated Chair - Easy to Travel',
-                        warranty: 'No Warranty',
-                        price: 1940,
-                        quantity: 1,
-                        canCancel: true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: '#176927512438024',
-        placedOn: '15 Jan 2024 10:30:15',
-        total: 3250,
-        packages: [
-            {
-                packageNumber: 1,
-                seller: "Electronics Hub",
-                deliveryWindow: 'Mon 22 Jan - Fri 26 Jan',
-                deliveryType: 'Express Delivery',
-                currentStatus: 'processing',
-                trackingUpdates: [
-                    {
-                        date: '16 Jan 2024 - 09:15',
-                        message: 'Order confirmed and being prepared for shipment.'
-                    }
-                ],
-                items: [
-                    {
-                        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
-                        name: 'Wireless Bluetooth Headphones with Noise Cancellation',
-                        warranty: '1 Year Warranty',
-                        price: 3250,
-                        quantity: 1,
-                        canCancel: true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        id: '#176927512438025',
-        placedOn: '05 Feb 2024 14:22:40',
-        total: 4580,
-        packages: [
-            {
-                packageNumber: 1,
-                seller: "Fashion Store",
-                deliveryWindow: 'Thu 15 Feb - Mon 19 Feb',
-                deliveryType: 'Standard Delivery',
-                currentStatus: 'delivered',
-                trackingUpdates: [
-                    {
-                        date: '18 Feb 2024 - 11:30',
-                        message: 'Package delivered successfully.'
-                    },
-                    {
-                        date: '17 Feb 2024 - 08:45',
-                        message: 'Out for delivery.'
-                    },
-                    {
-                        date: '16 Feb 2024 - 14:20',
-                        message: 'Package arrived at local facility.'
-                    }
-                ],
-                items: [
-                    {
-                        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400',
-                        name: 'Premium Leather Jacket - Genuine Leather',
-                        warranty: '6 Months Warranty',
-                        price: 4580,
-                        quantity: 1,
-                        canCancel: false
-                    }
-                ]
-            }
-        ]
-    }
-];
+
 
 const ProgressTracker = ({ currentStatus }) => {
     const stages = [
@@ -349,7 +251,7 @@ const MyOrders = () => {
                                     <div className="text-right">
                                         <p className="text-sm text-gray-500">Total</p>
                                         <p className="text-xl font-semibold text-gray-900">
-                                            Rs. {order.totalAmount.toLocaleString()}
+                                           <DirhamSymbol /> {order.totalAmount.toLocaleString()}
                                         </p>
                                     </div>
                                 </div>

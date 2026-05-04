@@ -20,6 +20,7 @@ const SearchResults = () => {
         try {
             const response = await api.get({ url: `v1/product/search?q=${query}` })
             if (response.success) {
+                console.log("search response",response)
                 setProducts(response.suggestions)
             }
         } catch (error) {

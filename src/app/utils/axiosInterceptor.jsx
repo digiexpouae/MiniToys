@@ -17,7 +17,6 @@ const setAuthToken = async () => {
     try {
         const USER_TOKEN = Cookies.get("authToken");
 
-        console.log("cooke", USER_TOKEN)
 
         if (USER_TOKEN) {
             axiosInstance.defaults.headers.common.Authorization = `Bearer ${USER_TOKEN}`;

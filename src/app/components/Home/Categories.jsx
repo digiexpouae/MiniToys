@@ -97,7 +97,7 @@ export default function ExploreCategories({ categories }) {
                     <div className="flex gap-2 snap-x snap-mandatory px-4">
                         {categories.map((category, index) => (
                             <div
-                                key={`mobile-${category.id}-${index}`}
+                                key={index}
                                 className="flex-shrink-0 w-44 px-2"
                             >
                                 <div className="  hover:shadow-lg transition-shadow relative overflow-hidden">
@@ -120,7 +120,7 @@ export default function ExploreCategories({ categories }) {
 
                                             style={{ borderRadius: "30% 60% 70% 30% / 45% 69% 30% 51%" }}>
                                             <div className="absolute top-4 right-0 left-0 flex items-center animate-float justify-center">
-                                                <Link href="/products">
+                                                <Link href={`/category/${category.name}`}>
 
                                                     <Image
                                                         src={category.image}
@@ -175,7 +175,7 @@ export default function ExploreCategories({ categories }) {
                             >
                                 {categories.map((category, index) => (
                                     <div
-                                        key={category.id}
+                                        key={index}
                                         className="flex-shrink-0 w-1/3 px-4"
                                     >
                                         <div className={`border border-zinc-800 rounded-lg p-6 bg-white cursor-pointer
@@ -184,7 +184,8 @@ export default function ExploreCategories({ categories }) {
         ${index % 2 !== 0 ? "h-[350px]" : "h-[330px] "}
       `}>
                                             <div className="aspect-square mb-4 flex items-center justify-center">
-                                                <Link href="/products">
+                                                                                           <Link href={`/category/${category.name}`}>
+
                                                     <Image
                                                         src={category.image}
                                                         alt={category.name}

@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 export default function ToyStoreHeader() {
+    
     return (
         <div className="w-full">
             {/* Top Bar */}
@@ -23,9 +25,13 @@ export default function ToyStoreHeader() {
                                 For Yous Mini's
                                 {/* </h2> */}
                             </h2>
-                            <button className="bg-white text-zinc-800  px-8 py-2 rounded-xl hover:bg-white/50 hover:text-white hover:scale-105 transition-all duration-200 w-fit shadow-xl text-sm">
+                              <Link href="/login">
+                            <button className="bg-white text-zinc-800  px-8 py-2 rounded-xl hover:bg-white/50 hover:text-white hover:scale-105 transition-all duration-200 w-fit cursor-pointer shadow-xl text-sm">
+                            
                                 Sign in
+                              
                             </button>
+                              </Link>
                         </div>
 
                         {/* Right Content - Character Image */}
@@ -68,9 +74,13 @@ export default function ToyStoreHeader() {
                                 For Yous Mini's
                                 {/* </h2> */}
                             </h2>
-                            <button className="bg-white text-zinc-800  px-8 py-2 rounded-xl hover:bg-white/50 hover:text-white hover:scale-105 transition-all duration-200 w-fit shadow-xl text-sm">
+                                    <Link href="/login">
+                            <button className="bg-white text-zinc-800  px-8 py-2 rounded-xl cursor-pointer hover:bg-white/50 hover:text-white hover:scale-105 transition-all duration-200 w-fit shadow-xl text-sm">
+                    
                                 Sign in
+                              
                             </button>
+                              </Link>
                         </div>
 
                         {/* Right Content - Character Image */}

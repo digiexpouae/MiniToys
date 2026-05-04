@@ -1,7 +1,12 @@
 "use client"
 import { useState } from 'react';
 import Image from 'next/image';
-export default function PaymentDetails({ cartItems }) {
+import api from '../utils/axiosInterceptor';
+import { useCartStore } from '../store/cartstore';
+import { useRouter } from 'next/navigation';
+import {Trash2} from 'lucide-react';
+import { DirhamSymbol } from '../components/Dirhamsymbol';
+export default function Mobilecart({ cartItems,fetchCart }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [cardType, setCardType] = useState('');
     const [formData, setFormData] = useState({
@@ -10,6 +15,8 @@ export default function PaymentDetails({ cartItems }) {
         expiryDate: '',
         cvv: ''
     });
+        const router = useRouter()
+    const { refreshCount } = useCartStore();
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
@@ -21,6 +28,48 @@ export default function PaymentDetails({ cartItems }) {
             [e.target.name]: e.target.value
         });
     };
+
+
+
+
+    function debounce(fn, delay) {
+        let timer;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), delay);
+        };
+    }
+
+    const removeItem = async (id) => {
+        const response = await api.delete({ url: `v1/cart/${id}` });
+        if (response.success) {
+            await fetchCart()
+            await refreshCount()
+        }
+    };
+
+    const handleQuantityChange = (id, currentQty, change) => {
+        const newQty = Math.max(1, currentQty + change);
+
+        updateCartOnServer(id, newQty);
+    };
+
+    const updateCartOnServer = debounce(async (id, qty) => {
+        await api.put({
+            url: `v1/cart/update/${id}`,
+            data: { quantity: qty }
+        });
+        fetchCart();
+
+    }, 400);
+
+
+
+
+
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    // const shipping = 9;
+    const total = Math.floor(subtotal );
 
     return (
         <>
@@ -38,42 +87,81 @@ export default function PaymentDetails({ cartItems }) {
                             <div className="mt-6">
                                 <h1 className="text-2xl text-black font-bold">Shopping cart</h1>
                                 <p className="text-slate-500 dark:text-slate-400 text-sm">
-                                    You have 3 items in your cart
+                                 
                                 </p>
                             </div>
                         </header>
 
                         {/* Cart Item */}
-                        <div className="px-6 space-y-3 mb-8">
-                            <div className="bg-white text-black p-3 rounded-2xl flex items-center gap-4 shadow-md border border-slate-100 dark:border-slate-700">
-                                <div className="w-16 h-16  rounded-xl overflow-hidden flex items-center justify-center">
+                        <div className="px-6 space-y-3 mb-8 ">
+                              
+                            <div className="bg-white text-black px-3 py-8 relative  rounded-2xl overflow-y-scroll flex flex-col items-start gap-8 shadow-md border border-slate-100 dark:border-slate-700">
+                             {cartItems.length==0 ?
+                              ( <p className="text-slate-500 dark:text-slate-400 text-sm">
+   You have {cartItems.length} items in your cart
+                                </p>):
+                         (cartItems.map((item, index) => (
+                             <div className='flex max-w-5xl gap-4 relative overflow-auto '
+                             key={index}>
+                             <div className="w-[120px] h-[120px] relative  rounded-xl flex items-start justify-center">
                                     <Image
                                         alt="Kids Chair"
-                                        width={80}
-                                        height={80}
-                                        src="/assets/stroller.svg"
+                                       width={120}
+                                       height={120}
+                                        src={item.image}
                                     />
                                 </div>
-                                <div className="flex-1">
-                                    <h3 className="font-semibold  text-sm">Kids Chair</h3>
-                                    <p className="text-[10px] text-slate-400 leading-tight">
-                                        Megastar - Magic Lightweight Foldable Baby Stroller Pram...
-                                    </p>
+                                <div className=" w-1/2 flex items-center">
+                                    <h3 className="font-semibold  text-xs">{item.name}</h3>
+                                 {/* for details */}
+                                    {/* <p className="text-[10px] text-slate-400 leading-tight">
+                                        {/* Megastar - Magic Lightweight Foldable Baby Stroller Pram... */}
+                                    {/* </p> */} 
                                 </div>
-                                <div className="flex flex-col items-end gap-2">
-                                    <span className="font-bold text-sm">$881</span>
-                                    <button className="text-slate-400 hover:text-red-500 transition-colors">
-                                        <span className="material-icons-round text-sm">delete</span>
-                                    </button>
-                                </div>
+                               <div className="flex flex-row  w-1/2 items-center justify-between gap-4 ">
+                                                    <div className="flex flex-row items-center ">
+
+                                                        <span className="w-8 text-center text-black font-medium">{item.quantity}</span>
+                                                        <div className='flex flex-col items-center'>
+                                                            <button
+                                                                onClick={() => handleQuantityChange(item.id, item.quantity, 1)}
+                                                                className="p-1 hover:bg-gray-100 transition rounded-r-lg"
+                                                            >
+                                                                <Image src="/assets/2.svg" alt="Plus" width={20} height={20} />
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleQuantityChange(item.id, item.quantity, -1)}
+                                                                className="p-1 hover:bg-gray-100 transition rounded-l-lg"
+                                                            >
+                                                                <Image src="/assets/1.svg" alt="Minus" width={20} height={20} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <span className=" flex gap-2 font-medium text-black"><DirhamSymbol />  {Math.floor(item.price * item.quantity)}</span>
+
+                                                    {/* Price and Delete */}
+                                                    <div className="flex items-center gap-3">
+                                                        <button
+                                                            onClick={() => removeItem(item.id)}
+                                                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+                                                        >
+                                                            <Trash2 className="w-5 h-5" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                    ) ))   
+                                      }         
                             </div>
+                            
                         </div>
 
                         {/* Card Details Section */}
                         <div className="mx-4 flex-grow">
                             <div className="bg-[#FFEFBF] text-black rounded-2xl p-6 shadow-xl ">
+                                <h2 className='text-2xl font-medium'>Cart Total</h2>
                                 {/* Header with Avatar */}
-                                <div className="flex justify-between  items-center mb-6">
+                                {/* <div className="flex justify-between  items-center mb-6">
                                     <h2 className="text-xl font-bold   text-black ">Card Details</h2>
                                     <Image
                                         alt="Profile Avatar"
@@ -86,7 +174,7 @@ export default function PaymentDetails({ cartItems }) {
                                 </div>
 
                                 {/* Card Type Selection */}
-                                <div className="mb-6">
+                                {/* <div className="mb-6">
                                     <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-3">
                                         Card type
                                     </label>
@@ -137,10 +225,10 @@ export default function PaymentDetails({ cartItems }) {
                                             See all
                                         </button>
                                     </div>
-                                </div>
+                                </div> */} 
 
                                 {/* Form Fields */}
-                                <div className="space-y-4">
+                                {/* <div className="space-y-4">
                                     <div>
                                         <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
                                             Name on card
@@ -195,27 +283,28 @@ export default function PaymentDetails({ cartItems }) {
                                             />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Price Summary */}
                                 <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 space-y-3">
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-slate-600 dark:text-slate-400">Subtotal</span>
-                                        <span className="font-bold">$1,668</span>
+                                        <span className="font-bold">${Math.floor(subtotal)}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-slate-600 dark:text-slate-400">Shipping</span>
-                                        <span className="font-bold">$4</span>
+                                        {/* <span className="font-bold">${shipping}</span> */}
                                     </div>
                                     <div className="flex justify-between items-center text-base pt-2">
                                         <span className="text-slate-600 dark:text-slate-400">Total (Tax incl.)</span>
-                                        <span className="font-bold text-xl">$1,672</span>
+                                        <span className="font-bold text-xl"><DirhamSymbol /> {total}</span>
                                     </div>
                                 </div>
 
                                 {/* Checkout Button */}
-                                <button className="w-full mt-8 bg-[#FD8121] hover:bg-orange-600 text-black font-bold py-4 rounded-2xl flex justify-between items-center px-6 transition-all active:scale-95 shadow-lg shadow-orange-500/30">
-                                    <span className="text-lg">$1,672</span>
+                                <button className="w-full mt-8 bg-[#FD8121] hover:bg-orange-600 text-black font-bold py-4 rounded-2xl flex justify-between items-center px-6 transition-all active:scale-95 shadow-lg shadow-orange-500/30"
+                                onClick={() => router.push('/checkout')}>
+                                    <span className="text-lg"><DirhamSymbol /> {total}</span>
                                     <span className="flex items-center gap-2">
                                         Checkout
                                     </span>

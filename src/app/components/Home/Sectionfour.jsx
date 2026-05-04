@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Heart, Plus } from "lucide-react";
 import Link from "next/link";
+import { DirhamSymbol } from "../Dirhamsymbol";
 
 const Sectionfour = ({ products,sellerinfo }) => {
     const [activeTab, setActiveTab] = useState('Stuffed Toys');
@@ -11,76 +12,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
     useEffect(() => {
         console.log("products section four", products)
     }, [products])
-    // const products = [
-    //     {
-    //         id: 1,
-    //         name: 'Crochet Cuddly Bunny',
-    //         price: 14.00,
-    //         image: '/assets/bunny.png',
-    //         colors: ['#FFB6C1', '#87CEEB', '#90EE90'],
-    //         badge: null
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'Crochet Bear',
-    //         price: 15.00,
-    //         image: '/assets/Croche Bear.png',
-    //         colors: ['#FF6B6B', '#4ECDC4', '#45B7D1'],
-    //         badge: null
-    //     },
-    //     {
-    //         id: 3,
-    //         name: 'Crochet Hippo',
-    //         price: 10.00,
-    //         originalPrice: 16.00,
-    //         image: '/assets/Crochet Bunny with a Bow.png',
-    //         colors: ['#FFE4B5', '#E6E6FA', '#F0E68C'],
-    //         badge: 'Sale 5%'
-    //     },
-    //     {
-    //         id: 4,
-    //         name: 'Crochet Bunny with a Bow',
-    //         price: 12.00,
-    //         originalPrice: 16.00,
-    //         image: '/assets/Crochet Hippo.png',
-    //         colors: ['#DDA0DD', '#F0E68C', '#98FB98'],
-    //         badge: 'Sale 5%'
-    //     },
-    //     {
-    //         id: 5,
-    //         name: 'Crochet Mouse with a Hat',
-    //         price: 18.00,
-    //         image: '/assets/Crochet Little Llama.png',
-    //         colors: ['#8B4513', '#4682B4', '#32CD32', '#FFD700'],
-    //         badge: null
-    //     },
-    //     {
-    //         id: 6,
-    //         name: 'Crochet Unicorn',
-    //         price: 19.00,
-    //         image: '/assets/Crochet Mouse with a Hat.png',
-    //         colors: ['#87CEEB', '#FFB6C1', '#FFFFE0'],
-    //         badge: null
-    //     },
-    //     {
-    //         id: 7,
-    //         name: 'Crochet Little Llama',
-    //         price: 16.00,
-    //         originalPrice: 20.00,
-    //         image: '/assets/Crochet Round Elephant.png',
-    //         colors: ['#87CEEB', '#F0E68C', '#90EE90'],
-    //         badge: 'Sale 5%'
-    //     },
-    //     {
-    //         id: 8,
-    //         name: 'Crochet Round Elephant',
-    //         price: 17.00,
-    //         originalPrice: 22.00,
-    //         image: '/assets/Crochet Unicorn.png',
-    //         colors: ['#E6E6FA', '#DDA0DD', '#F0E68C'],
-    //         badge: 'Sale 5%'
-    //     }
-    // ];
+  
     return (
         <div className=" h-auto md:min-h-screen relative w-full py-8 md:py-16  ">
 
@@ -153,7 +85,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                                 {/* Price */}
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <span className="text-lg font-bold text-gray-900">
-                                                        $ {product.price.toFixed(2)}
+                                                     <DirhamSymbol /> {product.price.toFixed(2)}
                                                     </span>
                                                     {product.originalPrice && (
                                                         <>
@@ -188,10 +120,10 @@ const Sectionfour = ({ products,sellerinfo }) => {
 
                 {/* Product Grid */}
                 <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {Array.isArray(products) && products.map((product) => (
+                    {Array.isArray(products) && products.map((product,index) => (
 
                         < div
-                            key={product.id}
+                            key={index}
                             className="bg-[#FEF7E6] rounded-lg p-4 border border-zinc-800 hover:shadow-lg transition-shadow relative"
                         >
                             <Link href={`/products/${product.slug}`}>
@@ -230,7 +162,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                 {/* Price */}
                                 <div className="text-center">
                                     <span className="text-gray-800 font-semibold">
-                                        ${product.price.toFixed(2)}
+                                         <DirhamSymbol /> {product.price.toFixed(2)}
                                     </span>
                                     {/* {product.originalPrice && (
                                     <span className="ml-2 text-gray-400 line-through text-sm">

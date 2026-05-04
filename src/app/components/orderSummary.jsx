@@ -1,12 +1,18 @@
 import { useRouter } from "next/navigation";
 import api from "../utils/axiosInterceptor";
 import { toast } from "react-toastify";
+import { usePaymentMethod } from "../store/payment";
+import { useCartStore } from "../store/cartstore";
+import { DirhamSymbol } from "./Dirhamsymbol";
 export default function OrderSummary({ cart }) {
     const router = useRouter()
     const Shipping = 20
     const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     const cart_item_ids = cart.map(item => item.id);
     const sellers_id=cart.map(item=>item.seller_id)
+const {selectedMethod }=usePaymentMethod()
+const {refreshCount }=useCartStore()
+console.log("selected method",selectedMethod)
 
     const notify = () => toast.success("Order Placed successfully");
 
@@ -14,7 +20,7 @@ export default function OrderSummary({ cart }) {
         subTotal: cartTotal,
         shippingFee: Shipping,
         totalAmount: cartTotal + Shipping,
-        pay_method: "cash",
+        pay_method:selectedMethod,
         cart_item_ids,
         status: "pending",
         seller_id:sellers_id
@@ -22,10 +28,17 @@ export default function OrderSummary({ cart }) {
 
     const handleSubmit = async () => {
         try {
+
+                if(!selectedMethod){
+                    toast.error("Please enter all Fields")
+                    return;}
+
             const response = await api.post({ url: 'v1/order/new', data: data })
             if (response.success == true) {
                 console.log(response)
+       
                 notify();
+                refreshCount()
                 setTimeout(() => {
                     router.push(`/myorders`)
                     router.refresh()
@@ -33,23 +46,24 @@ export default function OrderSummary({ cart }) {
             }
         } catch (error) {
             console.log(error);
+            toast.error(error.message);
         }
     }
 
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-sm border sticky top-6">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-transparent sticky top-6">
             <h2 className="font-semibold mb-4">Order summary</h2>
 
             <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                     <span>Item subtotal</span>
-                    <span>{cartTotal}</span>
+                    <span><DirhamSymbol  /> {cartTotal}</span>
                 </div>
 
                 <div className="flex justify-between">
                     <span>Estimated shipping</span>
-                    <span>{Shipping}</span>
+                    <span><DirhamSymbol  />  {Shipping}</span>
                 </div>
 
                 {/* <div className="flex justify-between">
@@ -59,7 +73,7 @@ export default function OrderSummary({ cart }) {
 
                 <div className="border-t pt-3 flex justify-between font-semibold text-base">
                     <span>Order total</span>
-                    <span>{cartTotal + Shipping}</span>
+                    <span><DirhamSymbol  /> {cartTotal + Shipping}</span>
                 </div>
             </div>
 
