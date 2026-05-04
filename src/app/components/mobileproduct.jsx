@@ -5,11 +5,15 @@ import { useCartStore } from '../store/cartstore';
 import { fetchCartCount, isLoggedIn } from '../utils/auth';
 import api from '../utils/axiosInterceptor';
 import { DirhamSymbol } from './Dirhamsymbol';
+import { useRouter } from 'next/navigation';
 export default function ProductDetails({ product }) {
+        const router=useRouter()
+
     const [quantity, setQuantity] = useState(1);
     const [giftWrap, setGiftWrap] = useState(false);
     const [email, setEmail] = useState('');
     const { refreshCount } = useCartStore()
+
    const [formValues, setFormValues] = useState({
         slug: product.slug,
         quantity: 1,
