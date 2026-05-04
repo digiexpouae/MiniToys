@@ -88,23 +88,25 @@ export default function ProductDetails({ product }) {
         setQuantity(Math.max(1, newValue));
     };
 
-        const addToCart = async () => {
-
-        console.log("Formdata", formValues)
+    const addToCart = async () => {
         if (!isLoggedIn()) {
             return router.push('/login');
         }
-
-        const response = await api.post({
-            url: 'v1/cart/new',
-            data: formValues,
-
-        })
-        if (response.success) {
-            await refreshCount()
+    
+        try {
+            const response = await api.post({
+                url: 'v1/cart/new',
+                data: formValues,
+            })
+            if (response.success) {
+                await refreshCount()
+            }
+            console.log(response)
+        } catch (error) {
+            console.error('Failed to add item to cart:', error)
         }
-        console.log(response)
     }
+    
 
 
 

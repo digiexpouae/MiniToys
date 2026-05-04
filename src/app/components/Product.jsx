@@ -43,23 +43,25 @@ export default function ProductPage({ product, sellerinfo}) {
     };
 
 
-    const addToCart = async () => {
+const addToCart = async () => {
+    console.log("Formdata", formValues)
+    if (!isLoggedIn()) {
+        return router.push('/login');
+    }
 
-        console.log("Formdata", formValues)
-        if (!isLoggedIn()) {
-            return router.push('/login');
-        }
-
+    try {
         const response = await api.post({
             url: 'v1/cart/new',
             data: formValues,
-
         })
         if (response.success) {
             await refreshCount()
         }
         console.log(response)
+    } catch (error) {
+        console.error('Failed to add item to cart:', error)
     }
+}
     return (
         <div className="min-h-screen  md:block hidden ">
             <div className="max-w-5xl  h-[120vh] mx-auto relative rounded-3xl  overflow-hidden">
