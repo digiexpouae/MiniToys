@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, Trash2, Plus, Minus } from 'lucide-react';
+import { DirhamSymbol } from '../components/Dirhamsymbol';
 import Image from 'next/image';
 import api from '../utils/axiosInterceptor';
 import { useCartStore } from '../store/cartstore';
@@ -74,8 +75,6 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
     });
     const [cartItemsQuantity, setcartItemsQuantity] = useState(0)
 
-
-
     function debounce(fn, delay) {
         let timer;
         return function (...args) {
@@ -108,7 +107,7 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
     }, 400);
 
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const shipping = 9;
+    const shipping = 0;
     const total = Math.floor(subtotal + shipping);
 
     return (<>
@@ -179,7 +178,7 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <span className="font-medium text-black">${Math.floor(item.price * item.quantity)}</span>
+                                                    <span className="font-medium text-black"><DirhamSymbol /> {Math.floor(item.price * item.quantity)}</span>
 
                                                     {/* Price and Delete */}
                                                     <div className="flex items-center gap-3">
@@ -200,8 +199,8 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                             </div>
                         </div>
 
-                        <div className="bg-[#FFEFBF] rounded-3xl p-5 h-full w-1/3 ">
-                            <div className="flex items-center justify-between mb-2">
+                        <div className="bg-[#FFEFBF] h-[250px] mt-14 flex flex-col justify-between rounded-3xl p-5 w-1/3 ">
+                            {/* <div className="flex items-center justify-between mb-2">
                                 <p className="text-xl font-medium text-gray-900">Card Details</p>
                                 <Image
                                     src="/assets/person_two.png"
@@ -213,7 +212,7 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                             </div>
 
                             {/* Card Type Selection */}
-                            <div className="mb-2 ">
+                            {/* <div className="mb-2 ">
                                 <label className="block text-sm font-medium text-gray-700 ">Card type</label>
                                 <div className="flex gap-3">
                                     <button className="flex-1 p-3  transition">
@@ -248,10 +247,10 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                                         See all
                                     </button>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Card Inputs */}
-                            <div className="space-y-4 mb-3">
+                            {/* <div className="space-y-4 mb-3">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Name on card
@@ -306,20 +305,20 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                                         />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Price Summary */}
                             <div className="space-y-2   ">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-600">Subtotal</span>
+                                    <span className="text-gray-600 font-medium">Subtotal</span>
                                     <span className="font-medium text-gray-900">${Math.floor(subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-600">Shipping</span>
+                                    <span className="text-gray-600 font-medium">Shipping</span>
                                     <span className="font-medium text-gray-900">${shipping}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-600">Total (Tax incl.)</span>
+                                    <span className="text-gray-600 font-medium">Total (Tax incl.)</span>
                                     <span className="font-medium text-gray-900">${total}</span>
                                 </div>
                             </div>
@@ -328,7 +327,7 @@ export default function ShoppingCartCheckout({ cartItems, fetchCart }) {
                             <div className="flex items-center mt-4 justify-between cursor-pointer mb-4 bg-[#FD8121] hover:bg-[#FD8121]/60 p-4 rounded-xl" onClick={() => router.push('/checkout')} >
                                 <div>
                                     <div className="text-xl font-semibold text-gray-900">
-                                        ${total}</div>
+                                       <DirhamSymbol size={'20px'} /> {total}</div>
                                 </div>
                                 <button className="px-8 py-2 text-black font-bold rounded-xl ">
                                     Checkout

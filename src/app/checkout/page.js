@@ -8,6 +8,7 @@ import Footer from "../Navigation/Footer";
 import { useEffect, useState } from "react";
 import api from "../utils/axiosInterceptor";
 import { isLoggedIn } from "../utils/auth";
+import Payment from '../components/payment'
 import { useRouter } from "next/navigation";
 export default function CheckoutPage() {
 
@@ -72,7 +73,7 @@ export default function CheckoutPage() {
                                 {/* Left Section */}
                                 <div className="lg:col-span-2 space-y-6">
                                     <AddressForm cart={cart} address={address} />
-
+                                    <Payment />
                                 </div>
 
                                 {/* Right Section */}

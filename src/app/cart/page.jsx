@@ -48,7 +48,7 @@ const CartPage = () => {
                         <Herosection />
                         <div className="relative rounded-2xl px-4 l max-w-6xl mx-auto -translate-y-44">
                             <Cart cartItems={cart} fetchCart={fetchCart} />
-                            <MobileCart cartItems={cart} />
+                            <MobileCart cartItems={cart} fetchCart={fetchCart}  />
                             
                         </div>
                         <Recommended />

@@ -1,15 +1,19 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
-
+import { useCartStore } from '../store/cartstore';
+import { fetchCartCount, isLoggedIn } from '../utils/auth';
+import api from '../utils/axiosInterceptor';
+import { DirhamSymbol } from './Dirhamsymbol';
 export default function ProductDetails({ product }) {
     const [quantity, setQuantity] = useState(1);
     const [giftWrap, setGiftWrap] = useState(false);
     const [email, setEmail] = useState('');
-
-    const handleQuantityChange = (change) => {
-        setQuantity(Math.max(1, quantity + change));
-    };
+    const { refreshCount } = useCartStore()
+   const [formValues, setFormValues] = useState({
+        slug: product.slug,
+        quantity: 1,
+    });
 
     const pairProducts = [
         {
@@ -75,6 +79,31 @@ export default function ProductDetails({ product }) {
         }
     ];
 
+   const handleQuantityChange = (value) => {
+        const newValue = parseInt(value) || 1;
+        setQuantity(Math.max(1, newValue));
+    };
+
+        const addToCart = async () => {
+
+        console.log("Formdata", formValues)
+        if (!isLoggedIn()) {
+            return router.push('/login');
+        }
+
+        const response = await api.post({
+            url: 'v1/cart/new',
+            data: formValues,
+
+        })
+        if (response.success) {
+            await refreshCount()
+        }
+        console.log(response)
+    }
+
+
+
     return (<>
         <div className="block md:hidden min-h-screen bg-white text-gray-800 dark:text-gray-100 transition-colors  duration-300 ">
             {/* Header */}
@@ -110,7 +139,7 @@ export default function ProductDetails({ product }) {
                     <div className="bg-white  rounded-3xl p-6 shadow-sm border border-orange-100 dark:border-gray-800">
                         <h2 className="text-2xl font-bold mb-2 text-black">{product.name}</h2>
                         <div className="flex items-baseline gap-2 mb-4">
-                            <span className="text-3xl font-bold text-[#EF4444]">${product.price}</span>
+                            <span className="text-3xl font-bold text-[#EF4444]"><DirhamSymbol size={'24px'} /> {product.price}</span>
                             <span className="text-sm text-gray-400 dark:text-gray-500">Tax included.</span>
                         </div>
 
@@ -188,6 +217,49 @@ export default function ProductDetails({ product }) {
                                 </svg>
                                 <span className='text-black'>Free Shipping On All Orders Above $50</span>
                             </div>
+
+
+
+                                <div className="space-y-4">
+                                    <div className="flex flex-row  w-full items-end gap-4">
+                                        <div className="w-auto">
+                                            <label className="block text-sm font-medium text-gray-700 mt-2 mb-2">
+                                                Quantity
+                                            </label>
+                                            <div className="flex items-center w-full text-black w-44 h-10 border border-black rounded-full overflow-hidden">
+                                                <button
+                                                    onClick={() => handleQuantityChange(quantity - 1)}
+                                                    className="px-2 w-1/4 py-2 hover:bg-gray-50 transition cursor-pointer hover:bg-zinc-200 "
+                                                >
+                                                    −
+                                                </button>
+
+                                                <input
+                                                    type="number"
+                                                    value={quantity}
+                                                    onChange={(e) => handleQuantityChange(e.target.value)}
+                                                    className=" text-center border-x-2 border-r border-black border-l  py-2  w-1/2  text-sm focus:outline-none"
+                                                />
+                                                <button
+                                                    onClick={() => handleQuantityChange(quantity + 1)}
+                                                    className="px-2 w-1/4 py-2 transition cursor-pointer hover:bg-zinc-200 "
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button onClick={addToCart} className="  text-nowrap px-12 py-2 w-auto border rounded-full text-black font-medium  transition shadow-lg hover:bg-zinc-200 cursor-pointer">
+                                            Add To Cart
+                                        </button>
+
+                                    </div>
+
+                                    <button className="w-full text-center text-sm text-gray-600 hover:text-gray-900 underline">
+                                        View sample product
+                                    </button>
+{/* <div className='text-zinc-800 text-sm font-medium'>Seller: <span className=' uppercase text-sm'>{sellerinfo}</span></div> */}
+                                </div>
                         </div>
                     </div>
                 </section>

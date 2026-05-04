@@ -1,5 +1,5 @@
 "use client"
-import { ShoppingCart, User, Search, Menu } from 'lucide-react';
+import { ShoppingCart, User, Search, Menu, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Navitems from './Navitems'
 import Link from 'next/link'
@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useCartStore } from '../store/cartstore';
 import api from '../utils/axiosInterceptor';
-import { ShoppingBag } from 'lucide-react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/Authcontext';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
@@ -15,6 +14,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { fetchCartCount, isLoggedIn } from '../utils/auth';
 const Header_two = () => {
     const { IsAuth, setIsAuth } = useContext(AuthContext)
+      const [mounted, setMounted] = useState(false);
     const debounceRef = useRef()
     const [token, setToken] = useState(null);
     const router = useRouter()
@@ -25,6 +25,14 @@ const Header_two = () => {
     const { cartCount, refreshCount } = useCartStore();
     const [products, setProducts] = useState([])
     const searchParams = useSearchParams()
+  
+
+useEffect(() => {
+    setMounted(true);
+}, []);
+
+
+useEffect(()=>{console.log("mount",mounted)},[mounted])
     useEffect(() => {
         // Route finished changing
 
@@ -189,7 +197,7 @@ const Header_two = () => {
                                             router.push(`/search?q=${e.target.value}`)
 
                                         }
-                                        setProducts([])
+                                        // setProducts([])
                                         console.log("log2", products)
 
                                     }
@@ -229,8 +237,10 @@ const Header_two = () => {
                             <p className="text-xs">Delivering to</p>
                             <span className="text-sm">United States</span>
                         </div>
-
-                        {IsAuth ?
+{!mounted ? (
+    // ✅ show a neutral placeholder during SSR & hydration
+       <div className="w-10 h-10" />) :
+                        IsAuth ?(
                             <div className="relative">
 
                                 <button
@@ -248,19 +258,19 @@ const Header_two = () => {
                                             Profile
                                         </Link>
                                         <Link
-                                            href="/orders"
+                                            href="/myorders"
                                             className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition"
                                             onClick={() => setDropdownOpen(false)}
                                         >
                                             Orders
                                         </Link>
-                                        <Link
+                                        {/* <Link
                                             href="/settings"
                                             className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition"
                                             onClick={() => setDropdownOpen(false)}
                                         >
                                             Settings
-                                        </Link>
+                                        </Link> */}
                                         <button
                                             onClick={handleLogout}
                                             className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 transition"
@@ -269,7 +279,7 @@ const Header_two = () => {
                                         </button>
                                     </div>
                                 )}
-                            </div>
+                            </div>)
 
                             : (<Link href="/login">
                                 <button className="bg-[#CF092D] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
@@ -317,7 +327,9 @@ const Header_two = () => {
 
                     {/* Right Section */}
                     <div className="flex items-center gap-6 text-zinc-800">
-                        {IsAuth ?
+                       {!mounted ? (
+                          <div className="w-10 h-10" /> ):
+                        IsAuth ?(
                             <div className="relative">
 
                                 <button
@@ -335,19 +347,19 @@ const Header_two = () => {
                                             Profile
                                         </Link>
                                         <Link
-                                            href="/orders"
+                                         href="/myorders"
                                             className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition"
                                             onClick={() => setDropdownOpen(false)}
                                         >
                                             Orders
                                         </Link>
-                                        <Link
+                                        {/* <Link
                                             href="/settings"
                                             className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition"
                                             onClick={() => setDropdownOpen(false)}
                                         >
                                             Settings
-                                        </Link>
+                                        </Link> */}
                                         <button
                                             onClick={handleLogout}
                                             className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 transition"
@@ -357,16 +369,16 @@ const Header_two = () => {
                                     </div>
                                 )}
                             </div>
-
+                        )
                             : (<Link href="/login">
                                 <button className="bg-[#CF092D] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
                                     Sign In
                                 </button></Link>)}
                         <div className="relative cursor-pointer  hover:text-pink-500">
                             {/* <ShoppingCart size={24} /> */}
-                            <div className='absolute top-0 right-0 rounded bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center'> {cartCount}</div>
+                            <div className='absolute -top-2 -right-2 rounded bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center'> {cartCount}</div>
                             <Link href="/cart">
-                                Cart </Link>
+                                <ShoppingBag size={24} />    </Link>
                             {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
 
                             </span> */}

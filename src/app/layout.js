@@ -27,11 +27,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AuthProvider >
+
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
         >
+    <AuthProvider >
           <Suspense fallback={<div className="h-20 bg-white" />}>
           <Headertwo />
           </Suspense>
@@ -48,8 +49,8 @@ export default function RootLayout({ children }) {
             pauseOnHover
             theme="light"
           />
+          </AuthProvider>
         </body>
       </html>
-    </AuthProvider>
   );
 }

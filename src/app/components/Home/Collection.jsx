@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-
+import {DirhamSymbol} from '../Dirhamsymbol'
 const ProductCollection = () => {
     const [activeTab, setActiveTab] = useState('Stuffed Toys');
 
@@ -138,11 +138,12 @@ const ProductCollection = () => {
                         {/* Price */}
                         <div className="text-center">
                             <span className="text-gray-800 font-semibold">
-                                ${product.price.toFixed(2)}
+                                <DirhamSymbol />{product.price.toFixed(2)}
                             </span>
                             {product.originalPrice && (
                                 <span className="ml-2 text-gray-400 line-through text-sm">
-                                    ${product.originalPrice.toFixed(2)}
+                                    
+                               <DirhamSymbol />{product.originalPrice.toFixed(2)}
                                 </span>
                             )}
                         </div>
