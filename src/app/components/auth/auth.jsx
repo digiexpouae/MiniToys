@@ -35,18 +35,15 @@ export default function AuthPage() {
                 data: formdata
             });
 
-            console.log("response", response);
 
             if (response.success) {
                 const token = response.token; // get token from response
-                console.log("token", token);
                 // Save token in cookie
                 Cookies.set("authToken", token, {
                     expires: 1, // 1 day
                     secure: false, // true if using HTTPS (prod)
                     sameSite: "Lax", // helps with cross-origin in dev
                 });
-                console.log("Toast firing");
                 notify();
                 setIsAuth(isLoggedIn());
                 setTimeout(() => {
