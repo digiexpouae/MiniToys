@@ -7,8 +7,8 @@ export default async function Home()  {
   // const [products, setProducts] = useState([]);
   // const [categories, setCategories] = useState([]);
    const [categoriesRes, productsRes] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/category/all`, { cache: "no-store" }),
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/product/all`, { cache: "no-store" }),
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/category/all`, { cache: "no-store" }),
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/product/all`, { cache: "no-store" }),
   ]);
 
   console.log("BASE_URL:", process.env.NEXT_PUBLIC_BASE_URL);
