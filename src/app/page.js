@@ -1,50 +1,34 @@
-"use client"
-import Image from "next/image";
-import Header from "../app/Navigation/Header";
-import Herosection from '../app/components/Home/HeroSection'
-import Section2 from '../app/components/Home/Section2'
-import Section3 from '../app/components/Home/Section3'
 import Sectionfour from '../app/components/Home/Sectionfour'
-import Collection from '../app/components/Home/Collection'
-import Section5 from '../app/components/Home/section5'
-import Section6 from '../app/components/Home/Section6'
-import Section7 from '../app/components/Home/Section7'
-import Section8 from '../app/components/Home/Section8'
-import Footer from '../app/Navigation/Footer'
-import Section9 from '../app/components/Home/Section9'
 import HeroSection_two from '../app/components/Home/HeroSection_two'
-// import Header_two from '../app/Navigation/Header_two'
 import Categories from '../app/components/Home/Categories'
 import Logoslider from '../app/components/Home/Logoslider'
-import api from "../app/utils/axiosInterceptor";
+import Footer from '../app/Navigation/Footer'
+export default async function Home()  {
+  // const [products, setProducts] = useState([]);
+  // const [categories, setCategories] = useState([]);
+   const [categoriesRes, productsRes] = await Promise.all([
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/category/all`, { cache: "no-store" }),
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/product/all`, { cache: "no-store" }),
+  ]);
 
-import { useEffect, useState } from "react";
-export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const fetchProducts = async () => {
-    try {
-      const response = await api.get({ url: `v1/product/all` });
-      setProducts(response.products);
-      console.log("products", response, response.products)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const fetchCategories = async () => {
-    try {
-      const response = await api.get({ url: `v1/category/all` });
-      setCategories(response.categories);
-      console.log("categories", response, response.categories)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  useEffect(() => {
+  console.log("BASE_URL:", process.env.NEXT_PUBLIC_BASE_URL);
+  console.log("categories status:", categoriesRes.status, categoriesRes.url);
+  console.log("products status:", productsRes.status, productsRes.url);
 
-    fetchProducts();
-    fetchCategories();
-  }, []);
+  // check before parsing
+  if (!categoriesRes.ok) {
+    return <div>Categories failed: {categoriesRes.status} - {categoriesRes.url}</div>;
+  }
+
+  if (!productsRes.ok) {
+    return <div>Products failed: {productsRes.status} - {productsRes.url}</div>;
+  }
+
+  const res1 = await categoriesRes.json();
+  const categories=res1.categories;
+  const res2 = await productsRes.json();
+  const products=res2.products;
+  console.log("products",products)
 
   return (
     <div className="flex  items-center justify-center w-full bg-[#FFFF] ">
