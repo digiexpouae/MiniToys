@@ -9,9 +9,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
     const [activeTab, setActiveTab] = useState('Stuffed Toys');
 
     const tabs = ['Stuffed Toys', 'Accessories', 'Clothes', 'Footwear'];
-    useEffect(() => {
-        console.log("products section four", products)
-    }, [products])
+
   
     return (
         <div className=" h-auto md:min-h-screen relative w-full py-8 md:py-16  ">
