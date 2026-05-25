@@ -42,7 +42,6 @@ export default function CheckoutPage() {
     const fetchAddress = async () => {
         try {
             const response = await api.get({ url: 'v1/address/get' });
-            console.log("address", response.response)
             setAddress(response.response);
         } catch (error) {
             console.log(error);

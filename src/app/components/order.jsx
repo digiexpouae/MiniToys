@@ -207,10 +207,8 @@ const MyOrders = () => {
         try {
             const response = await api.get({ url: 'v1/order/myOrders' });
             const ordersData = Array.isArray(response?.order) ? response.order : [];
-            console.log("ordersData", ordersData)
             setOrders(ordersData);
 
-            console.log("MyOrders:", ordersData);
         } catch (error) {
             console.log(error);
         }

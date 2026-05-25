@@ -11,7 +11,7 @@ import SectionFour from '../components/Home/Sectionfour'
 
 
 const SearchResults = () => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState(null)
     const searchParams = useSearchParams() // Hook is called here
     const q = searchParams.get('q')
 
@@ -20,7 +20,7 @@ const SearchResults = () => {
         try {
             const response = await api.get({ url: `v1/product/search?q=${query}` })
             if (response.success) {
-                console.log("search response",response)
+                console.log("search response", response)
                 setProducts(response.suggestions)
             }
         } catch (error) {
@@ -31,11 +31,18 @@ const SearchResults = () => {
     useEffect(() => {
         fetchSearchProdcuts(q)
     }, [q])
-
+    useEffect(() => {
+        console.log("products", products)
+    }, [products])
     return (
         <>
             <h1 className='text-black'>Search {q}</h1>
-            <SectionFour products={products} />
+            {products && products.length === 0 ? (<div className='h-[60vh] flex items-center justify-center'>
+                <span className='text-2xl'> Product does'nt exist</span>
+
+
+            </div>) :
+                (<SectionFour products={products} />)}
         </>
     )
 }

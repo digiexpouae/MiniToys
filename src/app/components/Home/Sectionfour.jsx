@@ -83,12 +83,12 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                                 {/* Price */}
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <span className="text-lg font-bold text-gray-900">
-                                                     <DirhamSymbol /> {product.price.toFixed(2)}
+                                                     <DirhamSymbol /> {parseFloat(product.price).toFixed(2)}
                                                     </span>
                                                     {product.originalPrice && (
                                                         <>
                                                             <span className="text-sm text-gray-400 line-through">
-                                                                $ {product.originalPrice.toFixed(2)}
+                                                                {parseFloat(product.originalPrice).toFixed(2)}
                                                             </span>
                                                             <span className="text-xs text-[#CF092D] font-semibold ml-auto">
                                                                 -{product.discount}%
@@ -160,7 +160,7 @@ const Sectionfour = ({ products,sellerinfo }) => {
                                 {/* Price */}
                                 <div className="text-center">
                                     <span className="text-gray-800 font-semibold">
-                                         <DirhamSymbol /> {product.price.toFixed(2)}
+                                         <DirhamSymbol /> {parseFloat(product.price).toFixed(2)}
                                     </span>
                                     {/* {product.originalPrice && (
                                     <span className="ml-2 text-gray-400 line-through text-sm">

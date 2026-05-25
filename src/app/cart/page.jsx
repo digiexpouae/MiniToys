@@ -19,7 +19,6 @@ const CartPage = () => {
         try {
             const response = await api.get({ url: 'v1/cart/' });
             setCart(response.items);
-            console.log("cart", response.items)
         } catch (error) {
             console.log(error);
         }

@@ -6,6 +6,9 @@ import Footer from '../app/Navigation/Footer'
 export default async function Home()  {
   // const [products, setProducts] = useState([]);
   // const [categories, setCategories] = useState([]);
+  let categories = [];
+  let products = [];
+   try {
    const [categoriesRes, productsRes] = await Promise.all([
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/category/all`, { cache: "no-store" }),
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/product/all`, { cache: "no-store" }),
@@ -16,19 +19,26 @@ export default async function Home()  {
   console.log("products status:", productsRes.status, productsRes.url);
 
   // check before parsing
-  if (!categoriesRes.ok) {
+  if (!categoriesRes.status === "fulfilled") {
     return <div>Categories failed: {categoriesRes.status} - {categoriesRes.url}</div>;
   }
+else{
+  const res1 = await categoriesRes.json();
+   categories=res1.categories;}
 
-  if (!productsRes.ok) {
+  if (!productsRes.status === "fulfilled") {
     return <div>Products failed: {productsRes.status} - {productsRes.url}</div>;
   }
 
-  const res1 = await categoriesRes.json();
-  const categories=res1.categories;
+ else{
   const res2 = await productsRes.json();
-  const products=res2.products;
-  console.log("products",products)
+   products=res2.products;}
+  // console.log("products",products)
+
+  } catch (error) {
+    console.error("Unexpected error fetching data:", error);
+  }
+
 
   return (
     <div className="flex  items-center justify-center w-full bg-[#FFFF] ">
@@ -39,12 +49,13 @@ export default async function Home()  {
         </div> */}
         {/* <Header_two /> */}
         <HeroSection_two />
-        <Categories categories={categories} />
+        <Categories categories={categories} /> 
+   
         <Logoslider />
         {/* <Section2 /> */}
         {/* <Section3 /> */}
 
-        <Sectionfour products={products} />
+  <Sectionfour products={products} />
 
         {/* <Section5 /> */}
         {/* <Section6 /> */}

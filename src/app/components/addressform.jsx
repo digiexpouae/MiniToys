@@ -98,7 +98,6 @@ export default function AddressForm({ address }) {
 
 
     if (savedAddress) {
-        console.log("savedAddress", savedAddress, address)
         return (
             <div className="bg-white p-6 rounded-2xl border shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">Saved Address</h2>

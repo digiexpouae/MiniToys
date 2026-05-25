@@ -125,7 +125,7 @@ export default function CartModal({
                                         </h4>
                                         {product.price && (
                                             <p className="text-pink-600 font-semibold mt-1">
-                                                ${product.price.toFixed(2)}
+                                                {parseFloat(product.price).toFixed(2)}
                                             </p>
                                         )}
                                     </div>
