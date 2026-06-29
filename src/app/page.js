@@ -3,9 +3,10 @@ import HeroSection_two from '../app/components/Home/HeroSection_two'
 import Categories from '../app/components/Home/Categories'
 import Logoslider from '../app/components/Home/Logoslider'
 import Footer from '../app/Navigation/Footer'
+import Slider from './components/Home/slider'
+import MobileCategories from './components/Home/mobileCategories' 
 export default async function Home()  {
-  // const [products, setProducts] = useState([]);
-  // const [categories, setCategories] = useState([]);
+ 
   let categories = [];
   let products = [];
    try {
@@ -13,10 +14,6 @@ export default async function Home()  {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/category/all`, { cache: "no-store" }),
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/v1/product/all`, { cache: "no-store" }),
   ]);
-
-  console.log("BASE_URL:", process.env.NEXT_PUBLIC_BASE_URL);
-  console.log("categories status:", categoriesRes.status, categoriesRes.url);
-  console.log("products status:", productsRes.status, productsRes.url);
 
   // check before parsing
   if (!categoriesRes.status === "fulfilled") {
@@ -49,7 +46,9 @@ else{
         </div> */}
         {/* <Header_two /> */}
         <HeroSection_two />
+        <Slider />
         <Categories categories={categories} /> 
+       <MobileCategories />
    
         <Logoslider />
         {/* <Section2 /> */}

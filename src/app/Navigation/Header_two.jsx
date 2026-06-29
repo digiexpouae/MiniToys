@@ -124,7 +124,7 @@ useEffect(()=>{console.log("mount",mounted)},[mounted])
 
 
     return (<div className='w-full'>
-        <div className=" hidden md:block bg-[#FEED17] text-gray-800 text-sm py-2">
+        <div className=" hidden md:block bg-[#ED243D] text-white text-sm py-2">
             <div className="container mx-auto px-12 flex justify-between items-center">
                 <div className="flex gap-6">
                     <span>The Choice of Millions of Moms</span>
@@ -159,7 +159,7 @@ useEffect(()=>{console.log("mount",mounted)},[mounted])
                     {/* Search Bar */}
                     <div className="flex-1 max-w-2xl mx-8">
                         <div className="relative">
-                            <button className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#CF092D] text-white p-2 rounded-full hover:bg-pink-600">
+                            <button className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#0875AE] text-white p-2 rounded-full hover:bg-pink-600">
                                 <Search size={20} />
                             </button>
                             <input
@@ -287,7 +287,7 @@ useEffect(()=>{console.log("mount",mounted)},[mounted])
                             </div>)
 
                             : (<Link href="/login">
-                                <button className="bg-[#CF092D] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
+                                <button className="bg-[#0875AE] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
                                     Sign In
                                 </button></Link>)}
                         <div className="relative cursor-pointer  hover:text-pink-500">
@@ -376,7 +376,7 @@ useEffect(()=>{console.log("mount",mounted)},[mounted])
                             </div>
                         )
                             : (<Link href="/login">
-                                <button className="bg-[#CF092D] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
+                                <button className="bg-[#0875AE] text-white px-6 py-2 cursor-pointer rounded-md hover:bg-[#CF092D]/50 font-medium">
                                     Sign In
                                 </button></Link>)}
                         <div className="relative cursor-pointer  hover:text-pink-500">

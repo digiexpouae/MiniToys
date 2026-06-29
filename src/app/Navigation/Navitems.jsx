@@ -29,7 +29,7 @@ export default function Navbar() {
             <ul className="flex  text-xs font-medium text-gray-700">
                 <li
                     className={`flex items-center cursor-pointer px-3  rounded   
-            ${active === "ALL" ? "bg-[#CF092D] text-white" : "hover:text-pink-500"}`}
+            ${active === "ALL" ? "bg-[#0875AE] text-white" : "hover:text-pink-500"}`}
                     onClick={() => setActive("ALL")}
                 >
                     {/* <Menu size={20} /> */}
@@ -42,7 +42,7 @@ export default function Navbar() {
                         onClick={() => setActive(item.label)}
                         className={`cursor-pointer px-3 py-3 transition-all duration-500 ease-in-out
       ${active === item.label
-                                ? "bg-[#CF092D] text-white"
+                                ? "bg-[#0875AE] text-white"
                                 : "hover:text-pink-500"
                             }`}
                     >

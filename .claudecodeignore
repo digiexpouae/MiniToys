@@ -1,0 +1,23 @@
+# Ignore dependency directories
+node_modules/
+bower_components/
+env/
+venv/
+.venv/
+
+# Ignore build outputs and caches
+dist/
+build/
+.next/
+.nuxt/
+.cache/
+
+# Ignore version control and IDE files
+.git/
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
